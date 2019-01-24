@@ -1,10 +1,17 @@
 package com.rappi.movies.data.network;
 
-import android.graphics.Movie;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.rappi.movies.R;
+import com.rappi.movies.data.entities.Movie;
+import com.rappi.movies.data.persistence.LocalStorage;
 
 import java.util.List;
 
@@ -12,11 +19,10 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
     private List<Movie> movies;
 
-    //TODO
-    //private OnItemClicked onClick;
+    private OnItemClicked onClick;
 
 
-    public RecyclerAdapter(List<Movie> movies){
+    public RecyclerAdapter(List<Movie> movies) {
         this.movies = movies;
     }
 
@@ -24,22 +30,56 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        return null;
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.card_layout, viewGroup, false);
+        ViewHolder viewHolder = new ViewHolder(view);
+        return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(@NonNull ViewHolder viewHolder, final int i) {
+        Movie movie = movies.get(i);
+        System.out.println(movie.getBackdrop_path());
+        viewHolder.movieImage.setImageDrawable(LocalStorage.LoadImageFromWebOperations("https://image.tmdb.org/t/p/w300" + movie.getBackdrop_path()));
+        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onClick.onItemClick(i);
+            }
+        });
+    }
 
+    public void setOnClick(OnItemClicked onClick) {
+        this.onClick = onClick;
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return movies == null ? 0: movies.size();
+    }
+
+    public interface OnItemClicked {
+        void onItemClick(int position);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
+
+        public ImageView movieImage;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            movieImage = itemView.findViewById(R.id.item_image);
+
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override public void onClick(View v) {
+
+                    int position = getAdapterPosition();
+
+                    Snackbar.make(v, "Click detected on item " + position,
+                            Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+
+                }
+            });
         }
     }
 }

@@ -1,4 +1,4 @@
-package com.rappi.test.moviesrappi;
+package com.rappi.movies;
 
 import org.junit.Test;
 

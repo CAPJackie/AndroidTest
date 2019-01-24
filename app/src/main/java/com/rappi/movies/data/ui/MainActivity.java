@@ -1,4 +1,4 @@
-package com.rappi.test.moviesrappi;
+package com.rappi.test.movies.data.ui;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -6,6 +6,8 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.TextView;
+
+import com.rappi.test.movies.R;
 
 public class MainActivity extends AppCompatActivity {
 

@@ -1,5 +1,6 @@
 package com.rappi.movies.data.network;
 
+import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
@@ -8,10 +9,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.rappi.movies.R;
 import com.rappi.movies.data.entities.Movie;
 import com.rappi.movies.data.persistence.LocalStorage;
+import com.rappi.movies.data.ui.MainActivity;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -38,8 +42,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, final int i) {
         Movie movie = movies.get(i);
-        System.out.println(movie.getBackdrop_path());
-        viewHolder.movieImage.setImageDrawable(LocalStorage.LoadImageFromWebOperations("https://image.tmdb.org/t/p/w300" + movie.getBackdrop_path()));
+        //System.out.println(movie.getBackdrop_path());
+        Picasso.get().load("https://image.tmdb.org/t/p/w500" + movie.getPoster_path()).into(viewHolder.movieImage);
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -74,9 +78,9 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
                     int position = getAdapterPosition();
 
-                    Snackbar.make(v, "Click detected on item " + position,
-                            Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
+
+                    Toast.makeText(v.getContext(), "Click detected on item " + position, Toast.LENGTH_LONG).show();
+
 
                 }
             });

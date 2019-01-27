@@ -25,4 +25,7 @@ public interface NetworkService
     //TODO
     @GET( "discover/movie?sort_by=vote_average.desc")
     Call<List<Movie>> getTopUpcomingMovies(@Query("sort_by") String popularity);
+
+    @GET( "search/movie?api_key=c05f33d6a72e0bbeb34578a678d7af79" )
+    Call<MovieSearch> getMoviesByQuery(@Query("query") String query);
 }

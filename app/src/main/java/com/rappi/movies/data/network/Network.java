@@ -18,4 +18,6 @@ public interface Network
     void getTopRatedMovies(RequestCallback<List<Movie>> requestCallback);
 
     void getUpcomingMovies(RequestCallback<List<Movie>> requestCallback);
+
+    void getMoviesByQuery(String query, RequestCallback<MovieSearch> requestCallback);
 }

@@ -3,11 +3,11 @@
     <string name="title_popular">Popular</string>
     <string name="title_top_rated">Top Rated</string>
     <string name="title_upcoming">Upcoming</string>
+    <string name="search">Search</string>
 
     <style name="CustomToolbarStyle" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:background">@null</item>
         <item name="android:fontFamily">@font/bungee</item>
-
     </style>
 
 </resources>

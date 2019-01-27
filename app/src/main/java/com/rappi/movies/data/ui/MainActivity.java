@@ -50,6 +50,8 @@ public class MainActivity extends AppCompatActivity {
                     return true;
                 case R.id.navigation_upcoming:
                     return true;
+                case R.id.navigation_search:
+                    return true;
             }
             return false;
         }
@@ -72,15 +74,15 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         setViewComponents();
         setRecyclerViewComponents();
-        mTextMessage = (TextView) findViewById(R.id.message);
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        mTextMessage = findViewById(R.id.message);
+        BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         setMoviesData();
     }
 
     private void setRecyclerViewComponents() {
-        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        recyclerView = findViewById(R.id.recycler_view);
         layoutManager = new GridLayoutManager(this, 3);
         recyclerView.setLayoutManager(layoutManager);
         setListToAdapter();
@@ -88,11 +90,10 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void setViewComponents() {
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-        toolBar = (Toolbar) findViewById(R.id.app_bar);
+        toolBar = findViewById(R.id.app_bar);
         setSupportActionBar(toolBar);
-        getSupportActionBar().setDisplayShowTitleEnabled(true);
     }
 
     private void setMoviesData() {

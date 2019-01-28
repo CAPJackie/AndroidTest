@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView.LayoutManager layoutManager;
     RecyclerView.Adapter adapter;
     Toolbar toolBar;
+    MenuItem searchItem;
 
 
     private TextView mTextMessage;
@@ -46,14 +47,23 @@ public class MainActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_popular:
+                    searchItem.setVisible(false);
                     movies = LocalStorage.getPopularMovies();
                     setListToAdapter();
                     return true;
                 case R.id.navigation_top_rated:
+                    searchItem.setVisible(false);
+                    movies = LocalStorage.getTopRatedMovies();
+                    setListToAdapter();
                     return true;
                 case R.id.navigation_upcoming:
+                    searchItem.setVisible(false);
+                    movies = LocalStorage.getUpcomingMovies();
+                    setListToAdapter();
                     return true;
                 case R.id.navigation_search:
+                    searchItem.setVisible(true);
+                    //movies = LocalStorage.getMoviesBySearch();
                     return true;
             }
             return false;
@@ -101,7 +111,39 @@ public class MainActivity extends AppCompatActivity {
 
     private void setMoviesData() {
         setPopularMovies();
+        setTopRatedMovies();
+        setUpcomingMovies();
 
+    }
+
+    private void setUpcomingMovies() {
+        LocalStorage.retrofitNetwork.getUpcomingMovies(new RequestCallback<MovieSearch>() {
+            @Override
+            public void onSuccess(MovieSearch response) {
+                List<Movie> movies = response.getResults();
+                LocalStorage.setUpcomingMovies(movies);
+            }
+
+            @Override
+            public void onFailed(NetworkException e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
+    private void setTopRatedMovies() {
+        LocalStorage.retrofitNetwork.getTopRatedMovies(new RequestCallback<MovieSearch>() {
+            @Override
+            public void onSuccess(MovieSearch response) {
+                List<Movie> movies = response.getResults();
+                LocalStorage.setTopRatedMovies(movies);
+            }
+
+            @Override
+            public void onFailed(NetworkException e) {
+                e.printStackTrace();
+            }
+        });
     }
 
     private void setPopularMovies() {
@@ -123,27 +165,24 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.search_menu, menu);
-        MenuItem item = menu.findItem(R.id.search_movies);
-        SearchView searchView = (SearchView) item.getActionView();
+        searchItem = menu.findItem(R.id.search_movies);
+        SearchView searchView = (SearchView) searchItem.getActionView();
+        searchItem.setVisible(false);
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(final String query) {
-                runOnUiThread(new Runnable() {
+                LocalStorage.retrofitNetwork.getMoviesByQuery(query, new RequestCallback<MovieSearch>() {
                     @Override
-                    public void run() {
-                        LocalStorage.retrofitNetwork.getMoviesByQuery(query, new RequestCallback<MovieSearch>() {
-                            @Override
-                            public void onSuccess(MovieSearch response) {
-                                movies = response.getResults();
-                                setListToAdapter();
-                            }
+                    public void onSuccess(MovieSearch response) {
+                        movies = response.getResults();
+                        setListToAdapter();
+                        //TaskScheduler
+                    }
 
-                            @Override
-                            public void onFailed(NetworkException e) {
-                                e.printStackTrace();
-                            }
-                        });
+                    @Override
+                    public void onFailed(NetworkException e) {
+                        e.printStackTrace();
                     }
                 });
 

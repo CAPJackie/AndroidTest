@@ -13,7 +13,11 @@ import java.util.List;
 public class LocalStorage {
     public static final RetrofitNetwork retrofitNetwork = new RetrofitNetwork();
     private static List<Movie> popularMovies;
+    private static List<Movie> topRatedMovies;
+    private static List<Movie> upcomingMovies;
     private static Movie selectedMovie;
+    public static final String API_KEY = "c05f33d6a72e0bbeb34578a678d7af79";
+
 
     public static void setPopularMovies(List<Movie> popularMovies) {
         LocalStorage.popularMovies = popularMovies;
@@ -31,13 +35,19 @@ public class LocalStorage {
         return LocalStorage.selectedMovie;
     }
 
-    public static Drawable LoadImageFromWebOperations(String url) {
-        try {
-            InputStream is = (InputStream) new URL(url).getContent();
-            Drawable d = Drawable.createFromStream(is, "");
-            return d;
-        } catch (Exception e) {
-            return null;
-        }
+    public static List<Movie> getTopRatedMovies() {
+        return LocalStorage.topRatedMovies;
+    }
+
+    public static void setTopRatedMovies(List<Movie> topRatedMovies) {
+        LocalStorage.topRatedMovies = topRatedMovies;
+    }
+
+    public static List<Movie> getUpcomingMovies() {
+        return upcomingMovies;
+    }
+
+    public static void setUpcomingMovies(List<Movie> upcomingMovies) {
+        LocalStorage.upcomingMovies = upcomingMovies;
     }
 }

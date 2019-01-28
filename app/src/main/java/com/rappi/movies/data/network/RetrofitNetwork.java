@@ -28,13 +28,6 @@ public class RetrofitNetwork implements Network {
     }
 
 
-
-
-    @Override
-    public void getMoviesByCategory(final String category, final RequestCallback<List<Movie>> requestCallback) {
-
-    }
-
     @Override
     public void getPopularMovies(final RequestCallback<MovieSearch> requestCallback) {
         backgroundExecutor.execute(new Runnable() {
@@ -69,12 +62,34 @@ public class RetrofitNetwork implements Network {
 
 
     @Override
-    public void getTopRatedMovies(RequestCallback<List<Movie>> requestCallback) {
-
+    public void getTopRatedMovies(final RequestCallback<MovieSearch> requestCallback) {
+        backgroundExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                Call<MovieSearch> call = networkService.getTopRatedMovies();
+                try{
+                    Response<MovieSearch> execute = call.execute();
+                    requestCallback.onSuccess(execute.body());
+                } catch (Exception e) {
+                    requestCallback.onFailed(new NetworkException(null, e));
+                }
+            }
+        });
     }
 
     @Override
-    public void getUpcomingMovies(RequestCallback<List<Movie>> requestCallback) {
-
+    public void getUpcomingMovies(final RequestCallback<MovieSearch> requestCallback) {
+        backgroundExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                Call<MovieSearch> call = networkService.getUpcomingMovies();
+                try{
+                    Response<MovieSearch> execute = call.execute();
+                    requestCallback.onSuccess(execute.body());
+                } catch (Exception e) {
+                    requestCallback.onFailed(new NetworkException(null, e));
+                }
+            }
+        });
     }
 }

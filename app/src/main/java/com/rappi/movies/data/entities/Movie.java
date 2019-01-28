@@ -1,6 +1,8 @@
 package com.rappi.movies.data.entities;
 
-public class Movie {
+import java.io.Serializable;
+
+public class Movie implements Serializable {
     private int id;
 
     private String backdrop_path;

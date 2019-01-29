@@ -1,5 +1,6 @@
 package com.rappi.movies.data.ui;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
@@ -47,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
     private SharedPreferences.Editor editor;
     SharedPreferences preferences;
     private TextView mTextMessage;
+    BottomNavigationView navigation;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -103,6 +105,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(int position) {
                 LocalStorage.setSelectedMovie(movies.get(position));
+                Intent intent = new Intent(getApplicationContext(), DetailActivity.class);
+                startActivity(intent);
             }
         });
         recyclerView.setAdapter(adapter);
@@ -112,16 +116,30 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Log.d("DATE", (new SimpleDateFormat("yyyy-MM-dd")).format((Calendar.getInstance()).getTime()));
-        setViewComponents();
-        setRecyclerViewComponents();
-        mTextMessage = findViewById(R.id.message);
-        BottomNavigationView navigation = findViewById(R.id.navigation);
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         preferences = PreferenceManager
                 .getDefaultSharedPreferences(this.getApplicationContext());
         gson = new Gson();
+        setRecyclerViewComponents();
+        navigation = findViewById(R.id.navigation);
+        String defaultMovies = preferences.getString("popularMovies", "");
+        if(!defaultMovies.equals("")){
+            Type type = new TypeToken<List<Movie>>() {
+            }.getType();
+            //System.out.println(moviesJson);
+            movies = gson.fromJson(defaultMovies, type);
+            setListToAdapter();
+        }
+        navigation.setFocusedByDefault(false);
+        //navigation.getMenu().findItem(R.id.navigation_popular).setChecked(false);
+        setViewComponents();
+
+        mTextMessage = findViewById(R.id.message);
+
+        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+
+
         setMoviesData();
+
     }
 
     private void setRecyclerViewComponents() {
@@ -188,6 +206,8 @@ public class MainActivity extends AppCompatActivity {
             Log.d("Popular", "No hay Cache");
             setPopularMovies();
         }
+
+        //navigation.getMenu().findItem(R.id.navigation_upcoming).setChecked(true);
     }
 
     private void setUpcomingMovies() {

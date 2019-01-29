@@ -1,6 +1,7 @@
 package com.rappi.movies.data.network;
 
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -79,7 +80,10 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
                     int position = getAdapterPosition();
 
 
-                    Toast.makeText(v.getContext(), "Click detected on item " + position, Toast.LENGTH_LONG).show();
+                    Snackbar.make(v, "Click detected on item " + position,
+                            Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+
 
 
                 }

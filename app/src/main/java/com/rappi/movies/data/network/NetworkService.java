@@ -12,6 +12,7 @@ import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface NetworkService
@@ -24,10 +25,13 @@ public interface NetworkService
     @GET( "discover/movie?sort_by=vote_average.desc&api_key=" + LocalStorage.API_KEY)
     Call<MovieSearch> getTopRatedMovies();
 
-    //TODO
     @GET( "discover/movie?api_key=" + LocalStorage.API_KEY)
     Call<MovieSearch> getUpcomingMovies(@Query("primary_release_date.gte") String firstDate, @Query("primary_release_date.gte") String secondDate);
 
     @GET( "search/movie?api_key=" + LocalStorage.API_KEY )
     Call<MovieSearch> getMoviesByQuery(@Query("query") String query);
+
+    @GET( "movie/{movieId}?api_key=" + LocalStorage.API_KEY )
+    Call<Movie> getMovieById(@Path("movieId") int movieId);
+
 }

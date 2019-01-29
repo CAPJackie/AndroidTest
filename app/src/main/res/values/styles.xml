@@ -11,4 +11,8 @@
         <item name="android:fontFamily">@font/bungee</item>
     </style>
 
+    <style name="RatingBar" parent="Theme.AppCompat">
+        <item name="colorControlActivated">@color/gold</item>
+    </style>
+
 </resources>

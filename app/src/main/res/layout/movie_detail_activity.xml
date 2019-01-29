@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/black"
     android:orientation="vertical">
 
     <include
@@ -24,43 +26,57 @@
 
             <ImageView
                 android:layout_width="match_parent"
-                android:background="@android:color/black"
                 android:layout_height="0dp"
                 android:layout_weight="9"
-                android:src="@drawable/testimage"
-                android:adjustViewBounds="true"/>
+                android:adjustViewBounds="true"
+                android:background="@android:color/black"
+                android:src="@drawable/testimage" />
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="4"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
                 android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="Avengers: The EndGame" />
+                    android:fontFamily="@font/open_sans_extrabold"
+                    android:text="Avengers: The EndGame"
+                    android:textColor="@android:color/white"
+                    android:textSize="20sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="A culmination of 22 interconnected films and the finale of this epic journey across the length and breadth of the Marvel Cinematic Universe.  Our beloved heroes will truly understand how fragile this reality is and the sacrifices that must be made to uphold it." />
+                    android:layout_marginTop="15dp"
+                    android:fontFamily="@font/opensans_regular"
+                    android:text="A culmination of 22 interconnected films and the finale of this epic journey across the length and breadth of the Marvel Cinematic Universe.  Our beloved heroes will truly understand how fragile this reality is and the sacrifices that must be made to uphold it."
+                    android:textColor="@android:color/white"
+                    android:textSize="16dp" />
 
+
+                <RatingBar
+                    android:id="@+id/ratingBar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_weight="2"
+                    android:rating="3"
+                    android:theme="@style/RatingBar" />
 
             </LinearLayout>
 
-            <RatingBar
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="2" />
 
             <android.support.design.widget.TabLayout
                 android:id="@+id/tabs"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="2">
+                android:layout_weight="2"
+                app:tabTextColor="@android:color/white">
 
                 <android.support.design.widget.TabItem
                     android:id="@+id/tabItem"

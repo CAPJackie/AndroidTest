@@ -9,17 +9,72 @@
         layout="@layout/app_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0"/>
-    <LinearLayout
+        android:layout_weight="0" />
+
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
 
-        <TextView
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </LinearLayout>
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:background="@android:color/black"
+                android:layout_height="0dp"
+                android:layout_weight="9"
+                android:src="@drawable/testimage"
+                android:adjustViewBounds="true"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="4"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="Avengers: The EndGame" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="A culmination of 22 interconnected films and the finale of this epic journey across the length and breadth of the Marvel Cinematic Universe.  Our beloved heroes will truly understand how fragile this reality is and the sacrifices that must be made to uphold it." />
 
 
+            </LinearLayout>
 
+            <RatingBar
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="2" />
+
+            <android.support.design.widget.TabLayout
+                android:id="@+id/tabs"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="2">
+
+                <android.support.design.widget.TabItem
+                    android:id="@+id/tabItem"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tab_text_1" />
+
+                <android.support.design.widget.TabItem
+                    android:id="@+id/tabItem2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tab_text_3" />
+
+            </android.support.design.widget.TabLayout>
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>

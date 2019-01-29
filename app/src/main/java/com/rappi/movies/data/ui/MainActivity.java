@@ -2,6 +2,7 @@ package com.rappi.movies.data.ui;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -13,6 +14,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.SearchView;
 import android.widget.TextView;
 
@@ -27,6 +29,8 @@ import com.rappi.movies.data.network.RequestCallback;
 import com.rappi.movies.data.persistence.LocalStorage;
 
 import java.lang.reflect.Type;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -38,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
     Toolbar toolBar;
     MenuItem searchItem;
     Gson gson;
+    String searchQuery;
 
     private SharedPreferences.Editor editor;
     SharedPreferences preferences;
@@ -50,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_popular:
-                    searchItem.setVisible(false);
+                    searchItem.setVisible(true);
                     movies = LocalStorage.getPopularMovies();
                     setListToAdapter();
                     return true;
@@ -65,13 +70,31 @@ public class MainActivity extends AppCompatActivity {
                     setListToAdapter();
                     return true;
                 case R.id.navigation_search:
+                    //setSearchListeners();
                     searchItem.setVisible(true);
-                    //movies = LocalStorage.getMoviesBySearch();
+                    //setQueryMovies();
+                    //setListToAdapter();
                     return true;
             }
             return false;
         }
     };
+
+    private void setQueryMovies() {
+        LocalStorage.retrofitNetwork.getMoviesByQuery(searchQuery, new RequestCallback<MovieSearch>() {
+            @Override
+            public void onSuccess(MovieSearch response) {
+                List<Movie> movies = response.getResults();
+                //LocalStorage.setQueryMovies(movies);
+                setListToAdapter();
+            }
+
+            @Override
+            public void onFailed(NetworkException e) {
+                e.printStackTrace();
+            }
+        });
+    }
 
 
     private void setListToAdapter() {
@@ -89,6 +112,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Log.d("DATE", (new SimpleDateFormat("yyyy-MM-dd")).format((Calendar.getInstance()).getTime()));
         setViewComponents();
         setRecyclerViewComponents();
         mTextMessage = findViewById(R.id.message);
@@ -115,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolBar);
     }
 
-    private void setMoviesData(){
+    private void setMoviesData() {
         handlePopularMoviesData();
         handleUpcomingMoviesData();
         handleTopRatedMoviesData();
@@ -123,13 +147,14 @@ public class MainActivity extends AppCompatActivity {
 
     private void handleTopRatedMoviesData() {
         String moviesJson = preferences.getString("topRatedMovies", "");
-        if(!moviesJson.equals("")){
-            Type type = new TypeToken<List<Movie>>(){}.getType();
+        if (!moviesJson.equals("")) {
+            Type type = new TypeToken<List<Movie>>() {
+            }.getType();
             System.out.println(moviesJson);
             List<Movie> topRatedMovies = gson.fromJson(moviesJson, type);
             Log.d("Top Rated", "Hay cache almacenado");
             LocalStorage.setTopRatedMovies(topRatedMovies);
-        } else{
+        } else {
             Log.d("Top Rated", "No hay Cache");
             setTopRatedMovies();
         }
@@ -137,27 +162,29 @@ public class MainActivity extends AppCompatActivity {
 
     private void handleUpcomingMoviesData() {
         String moviesJson = preferences.getString("upcomingMovies", "");
-        if(!moviesJson.equals("")){
-            Type type = new TypeToken<List<Movie>>(){}.getType();
+        if (!moviesJson.equals("")) {
+            Type type = new TypeToken<List<Movie>>() {
+            }.getType();
             System.out.println(moviesJson);
             List<Movie> upcomingMovies = gson.fromJson(moviesJson, type);
             Log.d("Upcoming", "Hay cache almacenado");
             LocalStorage.setUpcomingMovies(upcomingMovies);
-        } else{
+        } else {
             Log.d("Upcoming", "No hay Cache");
             setUpcomingMovies();
         }
     }
 
-    private void handlePopularMoviesData(){
+    private void handlePopularMoviesData() {
         String moviesJson = preferences.getString("popularMovies", "");
-        if(!moviesJson.equals("")){
-            Type type = new TypeToken<List<Movie>>(){}.getType();
+        if (!moviesJson.equals("")) {
+            Type type = new TypeToken<List<Movie>>() {
+            }.getType();
             System.out.println(moviesJson);
             List<Movie> popularMovies = gson.fromJson(moviesJson, type);
             Log.d("Popular", "Hay cache almacenado");
             LocalStorage.setPopularMovies(popularMovies);
-        } else{
+        } else {
             Log.d("Popular", "No hay Cache");
             setPopularMovies();
         }
@@ -233,18 +260,35 @@ public class MainActivity extends AppCompatActivity {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.search_menu, menu);
         searchItem = menu.findItem(R.id.search_movies);
-        SearchView searchView = (SearchView) searchItem.getActionView();
+        //setSearchListeners();
+
+        final SearchView searchView = (SearchView) searchItem.getActionView();
         searchItem.setVisible(false);
 
+        searchView.setOnSearchClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                findViewById(R.id.toolbar_tittle).setVisibility(View.INVISIBLE);
+            }
+        });
+
+        searchView.setOnCloseListener(new SearchView.OnCloseListener() {
+            @Override
+            public boolean onClose() {
+                findViewById(R.id.toolbar_tittle).setVisibility(View.VISIBLE);
+                return false;
+            }
+        });
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(final String query) {
+                final Handler handler = new Handler();
                 LocalStorage.retrofitNetwork.getMoviesByQuery(query, new RequestCallback<MovieSearch>() {
                     @Override
                     public void onSuccess(MovieSearch response) {
                         movies = response.getResults();
+                        //LocalStorage.setQueryMovies(movies);
                         setListToAdapter();
-                        //TaskScheduler
                     }
 
                     @Override
@@ -252,6 +296,8 @@ public class MainActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
                 });
+                // After 3 seconds
+
 
                 return false;
             }
@@ -262,6 +308,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
         return super.onCreateOptionsMenu(menu);
+    }
+
+    private void setSearchListeners() {
+
     }
 }

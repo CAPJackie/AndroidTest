@@ -5,7 +5,7 @@
     <item
         android:id="@+id/search_movies"
         android:icon="@drawable/outline_search_24"
-        android:title="Search movies and series"
+        android:title="@string/search_item"
         app:actionViewClass="android.widget.SearchView"
         app:showAsAction="always">
 

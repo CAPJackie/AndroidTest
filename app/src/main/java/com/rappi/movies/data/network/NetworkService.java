@@ -5,6 +5,8 @@ import com.rappi.movies.data.entities.MovieSearch;
 import com.rappi.movies.data.persistence.LocalStorage;
 
 import java.security.KeyStore;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
@@ -23,8 +25,8 @@ public interface NetworkService
     Call<MovieSearch> getTopRatedMovies();
 
     //TODO
-    @GET( "discover/movie?sort_by=vote_average.desc&api_key=" + LocalStorage.API_KEY)
-    Call<MovieSearch> getUpcomingMovies();
+    @GET( "discover/movie?api_key=" + LocalStorage.API_KEY)
+    Call<MovieSearch> getUpcomingMovies(@Query("primary_release_date.gte") String firstDate, @Query("primary_release_date.gte") String secondDate);
 
     @GET( "search/movie?api_key=" + LocalStorage.API_KEY )
     Call<MovieSearch> getMoviesByQuery(@Query("query") String query);

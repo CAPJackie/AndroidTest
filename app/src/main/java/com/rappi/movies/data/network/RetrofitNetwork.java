@@ -4,6 +4,9 @@ package com.rappi.movies.data.network;
 import com.rappi.movies.data.entities.Movie;
 import com.rappi.movies.data.entities.MovieSearch;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
@@ -19,7 +22,7 @@ public class RetrofitNetwork implements Network {
 
     private NetworkService networkService;
 
-    private ExecutorService backgroundExecutor = Executors.newFixedThreadPool(2);
+    private ExecutorService backgroundExecutor = Executors.newFixedThreadPool(5);
 
     public RetrofitNetwork(){
         Retrofit retrofit =
@@ -82,7 +85,12 @@ public class RetrofitNetwork implements Network {
         backgroundExecutor.execute(new Runnable() {
             @Override
             public void run() {
-                Call<MovieSearch> call = networkService.getUpcomingMovies();
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                Calendar c = Calendar.getInstance();
+                String firstDate = sdf.format(c.getTime());
+                c.add(Calendar.DATE, 10);
+                String secondDate = sdf.format(c.getTime());
+                Call<MovieSearch> call = networkService.getUpcomingMovies(firstDate, secondDate);
                 try{
                     Response<MovieSearch> execute = call.execute();
                     requestCallback.onSuccess(execute.body());

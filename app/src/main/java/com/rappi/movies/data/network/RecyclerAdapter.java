@@ -37,7 +37,13 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, final int i) {
         Movie movie = movies.get(i);
-        Picasso.get().load("https://image.tmdb.org/t/p/w500" + movie.getPoster_path()).into(viewHolder.movieImage);
+        if(movie.getPoster_path()==null){
+            viewHolder.movieImage.setImageResource(R.drawable.incognita);
+            viewHolder.movieImage.setAdjustViewBounds(true);
+        } else{
+            Picasso.get().load("https://image.tmdb.org/t/p/w500" + movie.getPoster_path()).into(viewHolder.movieImage);
+        }
+
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -101,15 +101,33 @@ public class MainActivity extends AppCompatActivity {
 
     private void setListToAdapter() {
         adapter = new RecyclerAdapter(movies);
-        ((RecyclerAdapter) adapter).setOnClick(new RecyclerAdapter.OnItemClicked() {
+        ((RecyclerAdapter) adapter).setOnClick(onItemClickListener());
+        recyclerView.setAdapter(adapter);
+    }
+
+    @NonNull
+    private RecyclerAdapter.OnItemClicked onItemClickListener() {
+        return new RecyclerAdapter.OnItemClicked() {
             @Override
             public void onItemClick(int position) {
-                LocalStorage.setSelectedMovie(movies.get(position));
-                Intent intent = new Intent(getApplicationContext(), DetailActivity.class);
-                startActivity(intent);
+                LocalStorage.retrofitNetwork.getMovieById(movies.get(position).getId(), new RequestCallback<Movie>() {
+                    @Override
+                    public void onSuccess(Movie response) {
+                        LocalStorage.setSelectedMovie(response);
+                        Log.d("MainActivity", response.getHomepage());
+                        Intent intent = new Intent(getApplicationContext(), DetailActivity.class);
+                        startActivity(intent);
+                    }
+
+                    @Override
+                    public void onFailed(NetworkException e) {
+
+                    }
+                });
+                //Log.d("MOVIE", String.valueOf(movies.get(position).getTittle()));
+
             }
-        });
-        recyclerView.setAdapter(adapter);
+        };
     }
 
     @Override

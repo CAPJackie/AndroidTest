@@ -15,7 +15,7 @@ public class Movie implements Serializable {
     private String homepage;
     private String imdb_id;
     private String original_language;
-    private String original_tittle;
+    private String original_title;
     private String overview;
     private double popularity;
     private List<Company> production_companies;
@@ -26,12 +26,43 @@ public class Movie implements Serializable {
     private List<Language> spoken_languages;
     private String status;
     private String tagline;
-    private String tittle;
+    private String title;
     private boolean video;
     private double vote_average;
     private int vote_count;
 
     public Movie(){}
+
+    @Override
+    public String toString() {
+        return "Movie{" +
+                "id=" + id +
+                ", backdrop_path='" + backdrop_path + '\'' +
+                ", poster_path='" + poster_path + '\'' +
+                ", adult=" + adult +
+                ", belongs_to_collection=" + belongs_to_collection +
+                ", budget=" + budget +
+                ", genres=" + genres +
+                ", homepage='" + homepage + '\'' +
+                ", imdb_id='" + imdb_id + '\'' +
+                ", original_language='" + original_language + '\'' +
+                ", original_title='" + original_title + '\'' +
+                ", overview='" + overview + '\'' +
+                ", popularity=" + popularity +
+                ", production_companies=" + production_companies +
+                ", production_countries=" + production_countries +
+                ", release_date='" + release_date + '\'' +
+                ", revenue=" + revenue +
+                ", runtime=" + runtime +
+                ", spoken_languages=" + spoken_languages +
+                ", status='" + status + '\'' +
+                ", tagline='" + tagline + '\'' +
+                ", title='" + title + '\'' +
+                ", video=" + video +
+                ", vote_average=" + vote_average +
+                ", vote_count=" + vote_count +
+                '}';
+    }
 
     public Movie(int id, String backdrop_path, String poster_path) {
         this.backdrop_path = backdrop_path;
@@ -120,12 +151,12 @@ public class Movie implements Serializable {
         this.original_language = original_language;
     }
 
-    public String getOriginal_tittle() {
-        return original_tittle;
+    public String getOriginal_title() {
+        return original_title;
     }
 
-    public void setOriginal_tittle(String original_tittle) {
-        this.original_tittle = original_tittle;
+    public void setOriginal_title(String original_title) {
+        this.original_title = original_title;
     }
 
     public String getOverview() {
@@ -208,12 +239,12 @@ public class Movie implements Serializable {
         this.tagline = tagline;
     }
 
-    public String getTittle() {
-        return tittle;
+    public String getTitle() {
+        return title;
     }
 
-    public void setTittle(String tittle) {
-        this.tittle = tittle;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public boolean isVideo() {

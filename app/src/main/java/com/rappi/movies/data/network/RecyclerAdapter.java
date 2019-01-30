@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.rappi.movies.R;
 import com.rappi.movies.data.entities.Movie;
+import com.rappi.movies.data.persistence.LocalStorage;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -42,7 +43,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
             viewHolder.movieImage.setImageResource(R.drawable.incognita);
             viewHolder.movieImage.setAdjustViewBounds(true);
         } else{
-            Picasso.get().load("https://image.tmdb.org/t/p/w500" + movie.getPoster_path()).into(viewHolder.movieImage);
+            Picasso.get().load(LocalStorage.IMGS_URL + movie.getPoster_path()).into(viewHolder.movieImage);
         }
 
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {

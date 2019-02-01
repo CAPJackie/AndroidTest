@@ -34,4 +34,8 @@ public interface NetworkService
     @GET( "movie/{movieId}?api_key=" + LocalStorage.API_KEY )
     Call<Movie> getMovieById(@Path("movieId") int movieId);
 
+
+    @GET( "movie/{movieId}/videos?api_key=" +  LocalStorage.API_KEY)
+    Call<Movie> getMovieVideos(@Path("movieId") int movieId);
+
 }

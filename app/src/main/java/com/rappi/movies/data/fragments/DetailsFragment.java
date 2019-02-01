@@ -33,6 +33,9 @@ public class DetailsFragment extends Fragment {
         releaseDate =  view.findViewById(R.id.release_date_view);
 
 
+
+
+
         originalTitle.setText(selectedMovie.getOriginal_title());
         releaseDate.setText(selectedMovie.getRelease_date());
     }

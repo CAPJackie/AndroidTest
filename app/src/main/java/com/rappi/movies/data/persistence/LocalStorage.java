@@ -10,6 +10,8 @@ public class LocalStorage {
     public static final RetrofitNetwork retrofitNetwork = new RetrofitNetwork();
     public static final String IMGS_URL = "https://image.tmdb.org/t/p/w500";
     public static final String API_KEY = "c05f33d6a72e0bbeb34578a678d7af79";
+    public static final String YOUTUBE_URL_FIRST = "<iframe width=\"100%\" height=\"100%\" src=\"https://www.youtube.com/embed/";
+    public static final String YOUTUBE_URL_SECOND = "\" frameborder=\"0\" allowfullscreen></iframe>";
     private static List<Movie> popularMovies;
     private static List<Movie> topRatedMovies;
     private static List<Movie> upcomingMovies;

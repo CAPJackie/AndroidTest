@@ -31,6 +31,9 @@ public class Movie implements Serializable {
     private double vote_average;
     private int vote_count;
 
+
+    private List<Video> results;
+
     public Movie(){}
 
     @Override
@@ -269,5 +272,13 @@ public class Movie implements Serializable {
 
     public void setVote_count(int vote_count) {
         this.vote_count = vote_count;
+    }
+
+    public List<Video> getResults() {
+        return results;
+    }
+
+    public void setResults(List<Video> results) {
+        this.results = results;
     }
 }

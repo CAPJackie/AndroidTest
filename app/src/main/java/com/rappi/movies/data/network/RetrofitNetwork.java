@@ -79,6 +79,22 @@ public class RetrofitNetwork implements Network {
         });
     }
 
+    @Override
+    public void getMovieVideos(final int id, final RequestCallback<Movie> requestCallback) {
+        backgroundExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                Call<Movie> call = networkService.getMovieVideos(id);
+                try{
+                    Response<Movie> execute = call.execute();
+                    requestCallback.onSuccess(execute.body());
+                } catch (Exception e) {
+                    requestCallback.onFailed(new NetworkException(null, e));
+                }
+            }
+        });
+    }
+
 
     @Override
     public void getTopRatedMovies(final RequestCallback<MovieSearch> requestCallback) {

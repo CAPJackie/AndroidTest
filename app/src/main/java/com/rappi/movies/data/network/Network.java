@@ -15,4 +15,6 @@ public interface Network
     void getMoviesByQuery(String query, RequestCallback<MovieSearch> requestCallback);
 
     void getMovieById(int id, RequestCallback<Movie> requestCallback);
+
+    void getMovieVideos(int id, RequestCallback<Movie> requestCallback);
 }

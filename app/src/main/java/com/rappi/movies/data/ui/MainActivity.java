@@ -114,9 +114,8 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(Movie response) {
                         LocalStorage.setSelectedMovie(response);
-                        Log.d("MainActivity", response.getHomepage());
-                        Intent intent = new Intent(getApplicationContext(), DetailActivity.class);
-                        startActivity(intent);
+                        setVideosToAdapter();
+
                     }
 
                     @Override
@@ -128,6 +127,24 @@ public class MainActivity extends AppCompatActivity {
 
             }
         };
+    }
+
+    private void setVideosToAdapter() {
+        LocalStorage.retrofitNetwork.getMovieVideos(LocalStorage.getSelectedMovie().getId(), new RequestCallback<Movie>() {
+            @Override
+            public void onSuccess(Movie response) {
+                Log.d("RESPONSE", String.valueOf(response.getResults().size()));
+                LocalStorage.getSelectedMovie().setResults(response.getResults());
+                Intent intent = new Intent(getApplicationContext(), DetailActivity.class);
+                startActivity(intent);
+            }
+
+            @Override
+            public void onFailed(NetworkException e) {
+                e.printStackTrace();
+            }
+        });
+
     }
 
     @Override

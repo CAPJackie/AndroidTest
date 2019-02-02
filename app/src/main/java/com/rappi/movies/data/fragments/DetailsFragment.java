@@ -21,7 +21,7 @@ public class DetailsFragment extends Fragment {
     private TextView homePage;
     private TextView runTime;
     private TextView adult;
-    private TextView belongsToCollection;
+    private TextView productionCompanies;
     private TextView genres;
 
 
@@ -36,17 +36,12 @@ public class DetailsFragment extends Fragment {
     private void initComponents(View view) {
         selectedMovie = LocalStorage.getSelectedMovie();
         originalTitle = view.findViewById(R.id.original_title_view);
-        releaseDate =  view.findViewById(R.id.release_date_view);
+        releaseDate = view.findViewById(R.id.release_date_view);
         homePage = view.findViewById(R.id.homepage_view);
         runTime = view.findViewById(R.id.runtime_view);
         adult = view.findViewById(R.id.adult_view);
-        belongsToCollection = view.findViewById(R.id.belongs_to_collection_view);
+        productionCompanies = view.findViewById(R.id.production_companies_view);
         genres = view.findViewById(R.id.genres_view);
-
-
-
-
-
 
 
         originalTitle.setText(selectedMovie.getOriginal_title());
@@ -54,12 +49,16 @@ public class DetailsFragment extends Fragment {
         homePage.setText(selectedMovie.getHomepage());
         homePage.setMovementMethod(LinkMovementMethod.getInstance());
         runTime.setText(String.valueOf(selectedMovie.getRuntime()));
-        adult.setText(selectedMovie.isAdult()?"+18":"Non age restricted");
-        for(int i = 0; i < selectedMovie.getProduction_companies().size(); i++){
-            belongsToCollection.setText(belongsToCollection.getText() + selectedMovie.getProduction_companies().get(i).getName() + ", ");
+        adult.setText(selectedMovie.isAdult() ? "+18" : "Non age restricted");
+        for (int i = 0; i < selectedMovie.getProduction_companies().size(); i++) {
+            if (i == 0) {
+                productionCompanies.setText(productionCompanies.getText() + selectedMovie.getProduction_companies().get(i).getName() + ", ");
+            } else {
+                productionCompanies.setText(productionCompanies.getText() + "," + selectedMovie.getProduction_companies().get(i).getName());
+            }
         }
 
-        for(int i = 0; i < selectedMovie.getGenres().size(); i++){
+        for (int i = 0; i < selectedMovie.getGenres().size(); i++) {
             genres.setText(genres.getText() + "#" + selectedMovie.getGenres().get(i).getName() + " ");
         }
 

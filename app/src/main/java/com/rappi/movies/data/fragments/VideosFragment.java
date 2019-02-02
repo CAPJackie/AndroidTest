@@ -44,7 +44,7 @@ public class VideosFragment extends Fragment {
 
     private void setRecyclerViewComponents(View view) {
         recyclerView = view.findViewById(R.id.videos_recycler_view);
-        layoutManager = new GridLayoutManager(view.getContext(), 2);
+        layoutManager = new GridLayoutManager(view.getContext(), 1);
         recyclerView.setLayoutManager(layoutManager);
         setListToAdapter(view);
     }

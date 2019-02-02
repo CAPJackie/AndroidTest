@@ -24,6 +24,7 @@ import com.google.gson.reflect.TypeToken;
 import com.rappi.movies.R;
 import com.rappi.movies.data.entities.Movie;
 import com.rappi.movies.data.entities.MovieSearch;
+import com.rappi.movies.data.entities.Video;
 import com.rappi.movies.data.network.NetworkException;
 import com.rappi.movies.data.network.RecyclerAdapter;
 import com.rappi.movies.data.network.RequestCallback;
@@ -109,20 +110,38 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerAdapter.OnItemClicked onItemClickListener() {
         return new RecyclerAdapter.OnItemClicked() {
             @Override
-            public void onItemClick(int position) {
-                LocalStorage.retrofitNetwork.getMovieById(movies.get(position).getId(), new RequestCallback<Movie>() {
-                    @Override
-                    public void onSuccess(Movie response) {
-                        LocalStorage.setSelectedMovie(response);
-                        setVideosToAdapter();
+            public void onItemClick(final int position) {
+                String defaultMovie = preferences.getString("movie" + movies.get(position).getId(), "");
+                if(!defaultMovie.equals("")){
+                    Log.d("Movie", "Hay cache almacenado");
+                    Log.d("MOVIE PRINT", String.valueOf((Movie) gson.fromJson(defaultMovie, Movie.class)));
+                    //System.out.println(moviesJson);
+                    LocalStorage.setSelectedMovie(gson.fromJson(defaultMovie, Movie.class));
+                    setVideosToAdapter();
+                } else{
+                    LocalStorage.retrofitNetwork.getMovieById(movies.get(position).getId(), new RequestCallback<Movie>() {
+                        @Override
+                        public void onSuccess(Movie response) {
+                            LocalStorage.setSelectedMovie(response);
+                            Log.d("Movie", "No hay cache almacenado");
+                            SharedPreferences.Editor prefsEditor = preferences.edit();
+                            String jsonMovie = gson.toJson(response);
+                            //System.out.println(jsonUpcomingMovies);
+                            prefsEditor.putString("movie" + response.getId(), jsonMovie);
+                            prefsEditor.apply();
+                            setVideosToAdapter();
+                        }
 
-                    }
+                        @Override
+                        public void onFailed(NetworkException e) {
 
-                    @Override
-                    public void onFailed(NetworkException e) {
+                        }
+                    });
 
-                    }
-                });
+                }
+
+
+
                 //Log.d("MOVIE", String.valueOf(movies.get(position).getTittle()));
 
             }
@@ -130,20 +149,38 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setVideosToAdapter() {
-        LocalStorage.retrofitNetwork.getMovieVideos(LocalStorage.getSelectedMovie().getId(), new RequestCallback<Movie>() {
-            @Override
-            public void onSuccess(Movie response) {
-                Log.d("RESPONSE", String.valueOf(response.getResults().size()));
-                LocalStorage.getSelectedMovie().setResults(response.getResults());
-                Intent intent = new Intent(getApplicationContext(), DetailActivity.class);
-                startActivity(intent);
-            }
+        String videos = preferences.getString("videos" + LocalStorage.getSelectedMovie().getId(), "");
+        if(!videos.equals("")) {
+            Log.d("VIDEOS", "Hay cache almacenado");
+            Type type = new TypeToken<List<Video>>() {
+            }.getType();
+            Log.d("VIDEOS PRINT", videos);
+            LocalStorage.getSelectedMovie().setResults((List<Video>) gson.fromJson(videos, type));
+            Intent intent = new Intent(getApplicationContext(), DetailActivity.class);
+            startActivity(intent);
+        } else{
+            LocalStorage.retrofitNetwork.getMovieVideos(LocalStorage.getSelectedMovie().getId(), new RequestCallback<Movie>() {
+                @Override
+                public void onSuccess(Movie response) {
+                    LocalStorage.getSelectedMovie().setResults(response.getResults());
+                    Log.d("VIDEOS", "No hay cache almacenado");
+                    SharedPreferences.Editor prefsEditor = preferences.edit();
+                    String jsonVideos = gson.toJson(LocalStorage.getSelectedMovie().getResults());
+                    //System.out.println(jsonUpcomingMovies);
+                    prefsEditor.putString("videos" + LocalStorage.getSelectedMovie().getId(), jsonVideos);
+                    prefsEditor.apply();
 
-            @Override
-            public void onFailed(NetworkException e) {
-                e.printStackTrace();
-            }
-        });
+                    Intent intent = new Intent(getApplicationContext(), DetailActivity.class);
+                    startActivity(intent);
+                }
+
+                @Override
+                public void onFailed(NetworkException e) {
+                    e.printStackTrace();
+                }
+            });
+        }
+
 
     }
 

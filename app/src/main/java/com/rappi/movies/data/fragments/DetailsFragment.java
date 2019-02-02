@@ -48,7 +48,7 @@ public class DetailsFragment extends Fragment {
         releaseDate.setText(selectedMovie.getRelease_date());
         homePage.setText(selectedMovie.getHomepage());
         homePage.setMovementMethod(LinkMovementMethod.getInstance());
-        runTime.setText(String.valueOf(selectedMovie.getRuntime()));
+        runTime.setText(selectedMovie.getRuntime() + " min");
         adult.setText(selectedMovie.isAdult() ? "+18" : "Non age restricted");
         for (int i = 0; i < selectedMovie.getProduction_companies().size(); i++) {
             if (i == 0) {

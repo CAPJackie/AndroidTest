@@ -56,7 +56,6 @@ public class DetailActivity extends AppCompatActivity {
         videosFragment = new VideosFragment();
         tabLayout = findViewById(R.id.tabs);
         viewPager = findViewById(R.id.container);
-
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
         viewPager.setAdapter(mSectionsPagerAdapter);
 
@@ -79,11 +78,11 @@ public class DetailActivity extends AppCompatActivity {
         movieImage = findViewById(R.id.movie_image);
         selectedMovie = LocalStorage.getSelectedMovie();
         System.out.println(selectedMovie);
-        Log.d("DetailActivity", selectedMovie.getTitle());
+        Log.d("DetailActivity", String.valueOf((float)(selectedMovie.getVote_average() / 2)));
         movieTittle.setText(selectedMovie.getTitle());
         movieDescription.setText(selectedMovie.getOverview());
-        //TODO
-        //ratingBar
+        ratingBar.setRating((float) (selectedMovie.getVote_average() / 2));
+        ratingBar.setIsIndicator(true);
         Picasso.get().load(LocalStorage.IMGS_URL + selectedMovie.getBackdrop_path()).into(movieImage);
     }
 

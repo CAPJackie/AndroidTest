@@ -1,11 +1,9 @@
 package com.rappi.movies.data.ui;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -16,7 +14,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.rappi.movies.R;
 import com.rappi.movies.data.entities.Movie;
-import com.rappi.movies.data.entities.MovieSearch;
+import com.rappi.movies.data.entities.Search;
 import com.rappi.movies.data.network.NetworkException;
 import com.rappi.movies.data.network.RequestCallback;
 import com.rappi.movies.data.persistence.LocalStorage;
@@ -70,9 +68,9 @@ public class LoadingDataActivity extends AppCompatActivity {
 
 
         } else {
-            LocalStorage.retrofitNetwork.getPopularMovies(new RequestCallback<MovieSearch>() {
+            LocalStorage.retrofitNetwork.getPopularMovies(new RequestCallback<Search>() {
                 @Override
-                public void onSuccess(MovieSearch response) {
+                public void onSuccess(Search response) {
                     List<Movie> movies = response.getResults();
                     LocalStorage.setPopularMovies(movies);
 
@@ -81,9 +79,9 @@ public class LoadingDataActivity extends AppCompatActivity {
                     prefsEditor.putString("popularMovies", jsonPopularMovies);
                     prefsEditor.apply();
 
-                    LocalStorage.retrofitNetwork.getTopRatedMovies(new RequestCallback<MovieSearch>() {
+                    LocalStorage.retrofitNetwork.getTopRatedMovies(new RequestCallback<Search>() {
                         @Override
-                        public void onSuccess(MovieSearch response) {
+                        public void onSuccess(Search response) {
                             List<Movie> movies = response.getResults();
                             LocalStorage.setTopRatedMovies(movies);
 
@@ -92,9 +90,9 @@ public class LoadingDataActivity extends AppCompatActivity {
                             prefsEditor.putString("topRatedMovies", jsonTopRatedMovies);
                             prefsEditor.apply();
 
-                            LocalStorage.retrofitNetwork.getUpcomingMovies(new RequestCallback<MovieSearch>() {
+                            LocalStorage.retrofitNetwork.getUpcomingMovies(new RequestCallback<Search>() {
                                 @Override
-                                public void onSuccess(MovieSearch response) {
+                                public void onSuccess(Search response) {
                                     List<Movie> movies = response.getResults();
                                     LocalStorage.setUpcomingMovies(movies);
 

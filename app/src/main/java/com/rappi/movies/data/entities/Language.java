@@ -6,6 +6,9 @@ public class Language {
     private String iso_639_1;
     private String name;
 
+    public static final String ENGLISH_UNITED_STATES = "en-US";
+    public static final String SPANISH_MEXICO = "es-MX";
+
     public Language() {
     }
 

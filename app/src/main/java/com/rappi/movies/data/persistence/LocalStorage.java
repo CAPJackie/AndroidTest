@@ -12,6 +12,15 @@ public class LocalStorage {
     public static final String API_KEY = "c05f33d6a72e0bbeb34578a678d7af79";
     public static final String YOUTUBE_URL_FIRST = "<iframe width=\"100%\" height=\"100%\" src=\"https://www.youtube.com/embed/";
     public static final String YOUTUBE_URL_SECOND = "\" frameborder=\"0\" allowfullscreen></iframe>";
+    public static final String TMDB_BASE_URL = "https://api.themoviedb.org/3/";
+    public static final String POPULAR_CATEGORY = "popular";
+    public static final String TOP_RATED_CATEGORY = "top_rated";
+    public static final String UPCOMING_CATEGORY = "upcoming";
+    public static final int DEFAULT_PAGE = 1;
+
+    public static final String MOVIE = "movie";
+    public static final String TV_SHOW = "tv";
+
     private static List<Movie> popularMovies;
     private static List<Movie> topRatedMovies;
     private static List<Movie> upcomingMovies;

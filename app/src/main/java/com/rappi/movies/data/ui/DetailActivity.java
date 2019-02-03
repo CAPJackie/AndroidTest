@@ -1,5 +1,6 @@
 package com.rappi.movies.data.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
@@ -78,11 +79,18 @@ public class DetailActivity extends AppCompatActivity {
         Picasso.get().load(LocalStorage.IMGS_URL + selectedMovie.getBackdrop_path()).into(movieImage);
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(getApplicationContext(), MoviesActivity.class);
+        startActivity(intent);
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem menu) {
         if (menu.getItemId() == android.R.id.home) {
-            finish();
+            Intent intent = new Intent(getApplicationContext(), MoviesActivity.class);
+            startActivity(intent);
         }
         return super.onOptionsItemSelected(menu);
     }

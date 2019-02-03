@@ -3,15 +3,15 @@ package com.rappi.movies.data.entities;
 import java.util.List;
 import java.util.Objects;
 
-public class MovieSearch {
+public class Search {
     private int page;
     private int total_results;
     private int total_pages;
-    private List<Movie> results;
+    private List<Program> results;
 
-    public MovieSearch(){}
+    public Search(){}
 
-    public MovieSearch(int page, int total_results, int total_pages, List<Movie> results) {
+    public Search(int page, int total_results, int total_pages, List<Program> results) {
         this.page = page;
         this.total_results = total_results;
         this.total_pages = total_pages;
@@ -43,17 +43,17 @@ public class MovieSearch {
         this.total_pages = total_pages;
     }
 
-    public List<Movie> getResults() {
+    public List<Program> getResults() {
         return results;
     }
 
-    public void setResults(List<Movie> results) {
+    public void setResults(List<Program> results) {
         this.results = results;
     }
 
     @Override
     public String toString() {
-        return "MovieSearch{" +
+        return "Search{" +
                 "page=" + page +
                 ", total_results=" + total_results +
                 ", total_pages=" + total_pages +
@@ -65,7 +65,7 @@ public class MovieSearch {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        MovieSearch that = (MovieSearch) o;
+        Search that = (Search) o;
         return page == that.page &&
                 total_results == that.total_results &&
                 total_pages == that.total_pages &&

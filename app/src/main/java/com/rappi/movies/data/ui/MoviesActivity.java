@@ -1,6 +1,5 @@
 package com.rappi.movies.data.ui;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -21,11 +20,9 @@ import android.widget.SearchView;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.rappi.movies.R;
 import com.rappi.movies.data.entities.Movie;
-import com.rappi.movies.data.entities.MovieSearch;
-import com.rappi.movies.data.entities.Video;
+import com.rappi.movies.data.entities.Search;
 import com.rappi.movies.data.fragments.PopularMoviesFragment;
 import com.rappi.movies.data.fragments.TopRatedMoviesFragment;
 import com.rappi.movies.data.fragments.UpcomingMoviesFragment;
@@ -34,7 +31,6 @@ import com.rappi.movies.data.network.RecyclerAdapter;
 import com.rappi.movies.data.network.RequestCallback;
 import com.rappi.movies.data.persistence.LocalStorage;
 
-import java.lang.reflect.Type;
 import java.util.List;
 
 public class MoviesActivity extends AppCompatActivity {
@@ -115,9 +111,9 @@ public class MoviesActivity extends AppCompatActivity {
     }
 
     private void setQueryMovies() {
-        LocalStorage.retrofitNetwork.getMoviesByQuery(searchQuery, new RequestCallback<MovieSearch>() {
+        LocalStorage.retrofitNetwork.getMoviesByQuery(searchQuery, new RequestCallback<Search>() {
             @Override
-            public void onSuccess(MovieSearch response) {
+            public void onSuccess(Search response) {
                 List<Movie> movies = response.getResults();
                 //LocalStorage.setQueryMovies(movies);
                 setListToAdapter();
@@ -215,9 +211,9 @@ public class MoviesActivity extends AppCompatActivity {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(final String query) {
-                LocalStorage.retrofitNetwork.getMoviesByQuery(query, new RequestCallback<MovieSearch>() {
+                LocalStorage.retrofitNetwork.getMoviesByQuery(query, new RequestCallback<Search>() {
                     @Override
-                    public void onSuccess(MovieSearch response) {
+                    public void onSuccess(Search response) {
                         movies = response.getResults();
                         setListToAdapter();
                     }
@@ -238,6 +234,11 @@ public class MoviesActivity extends AppCompatActivity {
 
 
         return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
     }
 
 }

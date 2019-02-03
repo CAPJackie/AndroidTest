@@ -27,7 +27,8 @@ public class PopularMoviesFragment extends Fragment {
     private RecyclerAdapter adapter;
     private RecyclerView.LayoutManager layoutManager;
 
-    public PopularMoviesFragment(){}
+    public PopularMoviesFragment(){ ;
+    }
 
 
     @Nullable

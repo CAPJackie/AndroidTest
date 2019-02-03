@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
-public class Movie implements Serializable {
+public class Movie extends Program implements Serializable {
     private int id;
     private String backdrop_path;
     private String poster_path;

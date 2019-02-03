@@ -42,8 +42,6 @@ public class DetailsFragment extends Fragment {
         adult = view.findViewById(R.id.adult_view);
         productionCompanies = view.findViewById(R.id.production_companies_view);
         genres = view.findViewById(R.id.genres_view);
-
-
         originalTitle.setText(selectedMovie.getOriginal_title());
         releaseDate.setText(selectedMovie.getRelease_date());
         homePage.setText(selectedMovie.getHomepage());
@@ -61,6 +59,5 @@ public class DetailsFragment extends Fragment {
         for (int i = 0; i < selectedMovie.getGenres().size(); i++) {
             genres.setText(genres.getText() + "#" + selectedMovie.getGenres().get(i).getName() + " ");
         }
-
     }
 }

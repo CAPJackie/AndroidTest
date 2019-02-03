@@ -17,8 +17,6 @@ public class LocalStorage {
     private static List<Movie> upcomingMovies;
     private static Movie selectedMovie;
 
-
-
     public static void setPopularMovies(List<Movie> popularMovies) {
         LocalStorage.popularMovies = popularMovies;
     }

@@ -4,12 +4,6 @@ import com.rappi.movies.data.entities.Movie;
 import com.rappi.movies.data.entities.MovieSearch;
 import com.rappi.movies.data.persistence.LocalStorage;
 
-import java.security.KeyStore;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.List;
-import java.util.Map;
-
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;

@@ -6,4 +6,10 @@
     <string name="search_item">Search</string>
     <string name="tab_text_1">Details</string>
     <string name="tab_text_3">Videos</string>
+    <string name="blank_space"> </string>
+    <string name="original_tittle">Original tittle:</string>
+    <string name="release_date">Release date:</string>
+    <string name="runtime">Runtime:</string>
+    <string name="companies">Companies:</string>
+    <string name="genres">Genres:</string>
 </resources>

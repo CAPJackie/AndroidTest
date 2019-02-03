@@ -18,8 +18,6 @@ import java.util.List;
 public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoViewHolder> {
 
     private List<Video> videos;
-
-
     public VideoAdapter(List<Video> videos){
         this.videos = videos;
     }
@@ -43,7 +41,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoViewHol
     }
 
     public class VideoViewHolder extends RecyclerView.ViewHolder {
-        WebView videoWeb;
+        private WebView videoWeb;
         public VideoViewHolder(@NonNull View itemView) {
             super(itemView);
 

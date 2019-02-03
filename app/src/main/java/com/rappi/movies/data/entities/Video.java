@@ -1,5 +1,7 @@
 package com.rappi.movies.data.entities;
 
+import java.util.Objects;
+
 public class Video {
 
     private String id;
@@ -36,5 +38,30 @@ public class Video {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return "Video{" +
+                "id='" + id + '\'' +
+                ", key='" + key + '\'' +
+                ", name='" + name + '\'' +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Video video = (Video) o;
+        return Objects.equals(id, video.id) &&
+                Objects.equals(key, video.key) &&
+                Objects.equals(name, video.name);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(id, key, name);
     }
 }

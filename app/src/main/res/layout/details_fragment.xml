@@ -20,9 +20,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/open_sans_bold"
-                android:text="Original tittle: "
+                android:text="@string/original_tittle"
                 android:textColor="@android:color/white"
-                android:textSize="16sp" />
+                android:textSize="@dimen/text_default_size" />
 
             <TextView
                 android:id="@+id/original_title_view"
@@ -30,7 +30,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/opensans_regular"
                 android:textColor="@android:color/white"
-                android:textSize="16sp" />
+                android:textSize="@dimen/text_default_size" />
 
         </LinearLayout>
 
@@ -43,9 +43,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/open_sans_bold"
-                android:text="Release date: : "
+                android:text="@string/release_date"
                 android:textColor="@android:color/white"
-                android:textSize="16sp" />
+                android:textSize="@dimen/text_default_size" />
 
             <TextView
                 android:id="@+id/release_date_view"
@@ -53,7 +53,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/opensans_regular"
                 android:textColor="@android:color/white"
-                android:textSize="16sp" />
+                android:textSize="@dimen/text_default_size" />
         </LinearLayout>
 
 
@@ -65,7 +65,7 @@
             android:clickable="true"
             android:fontFamily="@font/opensans_regular"
             android:textColor="@android:color/white"
-            android:textSize="16sp" />
+            android:textSize="@dimen/text_default_size" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -76,9 +76,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/open_sans_bold"
-                android:text="Runtime: "
+                android:text="@string/runtime"
                 android:textColor="@android:color/white"
-                android:textSize="16sp" />
+                android:textSize="@dimen/text_default_size" />
 
             <TextView
                 android:id="@+id/runtime_view"
@@ -86,7 +86,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/opensans_regular"
                 android:textColor="@android:color/white"
-                android:textSize="16sp" />
+                android:textSize="@dimen/text_default_size" />
         </LinearLayout>
 
 
@@ -96,7 +96,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/open_sans_bold"
             android:textColor="@android:color/white"
-            android:textSize="16sp" />
+            android:textSize="@dimen/text_default_size" />
 
 
         <LinearLayout
@@ -108,9 +108,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/open_sans_bold"
-                android:text="Companies: "
+                android:text="@string/companies"
                 android:textColor="@android:color/white"
-                android:textSize="16sp" />
+                android:textSize="@dimen/text_default_size" />
 
             <TextView
                 android:id="@+id/production_companies_view"
@@ -118,7 +118,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/opensans_regular"
                 android:textColor="@android:color/white"
-                android:textSize="16sp" />
+                android:textSize="@dimen/text_default_size" />
 
         </LinearLayout>
 
@@ -131,9 +131,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/open_sans_bold"
-                android:text="Genres: "
+                android:text="@string/genres"
                 android:textColor="@android:color/white"
-                android:textSize="16sp" />
+                android:textSize="@dimen/text_default_size" />
 
             <TextView
                 android:id="@+id/genres_view"
@@ -141,7 +141,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/opensans_regular"
                 android:textColor="@android:color/white"
-                android:textSize="16sp" />
+                android:textSize="@dimen/text_default_size" />
         </LinearLayout>
 
 

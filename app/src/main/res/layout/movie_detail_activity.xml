@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/black"
@@ -30,8 +29,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
-                android:background="@android:color/black"
-                android:src="@drawable/testimage" />
+                android:background="@android:color/black" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -45,9 +43,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:fontFamily="@font/open_sans_extrabold"
-                    android:text="Avengers: The EndGame"
                     android:textColor="@android:color/white"
-                    android:textSize="20sp" />
+                    android:textSize="@dimen/tittle_default_size" />
 
                 <TextView
                     android:id="@+id/movie_description"
@@ -56,9 +53,8 @@
                     android:layout_gravity="center"
                     android:layout_marginTop="15dp"
                     android:fontFamily="@font/opensans_regular"
-                    android:text="A culmination of 22 interconnected films and the finale of this epic journey across the length and breadth of the Marvel Cinematic Universe.  Our beloved heroes will truly understand how fragile this reality is and the sacrifices that must be made to uphold it."
                     android:textColor="@android:color/white"
-                    android:textSize="16dp" />
+                    android:textSize="16sp" />
 
 
                 <RatingBar

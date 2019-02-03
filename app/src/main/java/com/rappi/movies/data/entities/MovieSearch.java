@@ -1,6 +1,7 @@
 package com.rappi.movies.data.entities;
 
 import java.util.List;
+import java.util.Objects;
 
 public class MovieSearch {
     private int page;
@@ -48,5 +49,32 @@ public class MovieSearch {
 
     public void setResults(List<Movie> results) {
         this.results = results;
+    }
+
+    @Override
+    public String toString() {
+        return "MovieSearch{" +
+                "page=" + page +
+                ", total_results=" + total_results +
+                ", total_pages=" + total_pages +
+                ", results=" + results +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        MovieSearch that = (MovieSearch) o;
+        return page == that.page &&
+                total_results == that.total_results &&
+                total_pages == that.total_pages &&
+                Objects.equals(results, that.results);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(page, total_results, total_pages, results);
     }
 }

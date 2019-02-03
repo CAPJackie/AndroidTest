@@ -6,6 +6,7 @@ import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
@@ -21,37 +22,27 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.rappi.movies.R;
-import com.rappi.movies.data.entities.Movie;
+import com.rappi.movies.data.entities.Program;
 import com.rappi.movies.data.entities.Search;
-import com.rappi.movies.data.fragments.PopularProgramsFragment;
-import com.rappi.movies.data.fragments.TopRatedProgramsFragment;
-import com.rappi.movies.data.fragments.UpcomingProgramsFragment;
+import com.rappi.movies.data.fragments.ProgramsTabFragment;
 import com.rappi.movies.data.network.NetworkException;
-import com.rappi.movies.data.network.RecyclerAdapter;
 import com.rappi.movies.data.network.RequestCallback;
 import com.rappi.movies.data.persistence.LocalStorage;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public class ProgramsActivity extends AppCompatActivity {
 
-    private List<Movie> movies;
-    private RecyclerView recyclerView;
-    private RecyclerView.LayoutManager layoutManager;
-    private RecyclerView.Adapter adapter;
     private Toolbar toolBar;
     private MenuItem searchItem;
     private Gson gson;
-    private String searchQuery;
-    private SharedPreferences.Editor editor;
     private SharedPreferences preferences;
-    private TextView mTextMessage;
     private BottomNavigationView navigation;
-    private FrameLayout mMainFrame;
 
-    private PopularProgramsFragment popularMoviesFragment;
-    private TopRatedProgramsFragment topRatedMoviesFragment;
-    private UpcomingProgramsFragment upcomingMoviesFragment;
+    private ProgramsTabFragment popularPrograms;
+    private ProgramsTabFragment topRatedPrograms;
+    private ProgramsTabFragment upcomingPrograms;
+
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -61,15 +52,15 @@ public class ProgramsActivity extends AppCompatActivity {
             switch (item.getItemId()) {
                 case R.id.navigation_popular:
                     searchItem.setVisible(false);
-                    setFragment(popularMoviesFragment);
+                    setFragment(popularPrograms);
                     return true;
                 case R.id.navigation_top_rated:
                     searchItem.setVisible(false);
-                    setFragment(topRatedMoviesFragment);
+                    setFragment(topRatedPrograms);
                     return true;
                 case R.id.navigation_upcoming:
                     searchItem.setVisible(false);
-                    setFragment(upcomingMoviesFragment);
+                    setFragment(upcomingPrograms);
                     return true;
                 case R.id.navigation_search:
                     searchItem.setVisible(true);
@@ -94,43 +85,41 @@ public class ProgramsActivity extends AppCompatActivity {
                 .getDefaultSharedPreferences(this.getApplicationContext());
         gson = new Gson();
 
-        popularMoviesFragment = new PopularProgramsFragment();
-        //topRatedMoviesFragment = new TopRatedProgramsFragment();
-        //upcomingMoviesFragment = new UpcomingProgramsFragment();
+        popularPrograms = new ProgramsTabFragment();
+
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("movies", (ArrayList<Program>) LocalStorage.getPopularMovies());
+        bundle.putSerializable("tvShows", (ArrayList<Program>) LocalStorage.getPopularTvShows());
+        popularPrograms.setArguments(bundle);
+
+
+        topRatedPrograms = new ProgramsTabFragment();
+
+        Bundle bundle2 = new Bundle();
+        bundle2.putSerializable("movies", (ArrayList<Program>) LocalStorage.getTopRatedMovies());
+        bundle2.putSerializable("tvShows", (ArrayList<Program>) LocalStorage.getTopRatedTvShows());
+        topRatedPrograms.setArguments(bundle2);
+
+
+
+        upcomingPrograms = new ProgramsTabFragment();
+
+        Bundle bundle3 = new Bundle();
+        bundle3.putSerializable("movies", (ArrayList<Program>) LocalStorage.getUpcomingMovies());
+        bundle3.putSerializable("tvShows", (ArrayList<Program>) LocalStorage.getUpcomingTvShows());
+        upcomingPrograms.setArguments(bundle3);
+
+
 
         navigation = findViewById(R.id.navigation);
-        mMainFrame = findViewById(R.id.main_frame);
-        setFragment(popularMoviesFragment);
+        setFragment(popularPrograms);
+        navigation.setSelectedItemId(R.id.navigation_popular);
         setViewComponents();
-        mTextMessage = findViewById(R.id.message);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
     }
 
-    private void setQueryMovies() {
-        LocalStorage.retrofitNetwork.getMoviesByQuery(searchQuery, new RequestCallback<Search>() {
-            @Override
-            public void onSuccess(Search response) {
-                //List<Movie> movies = response.getResults();
-                //LocalStorage.setQueryMovies(movies);
-                setListToAdapter();
-            }
-
-            @Override
-            public void onFailed(NetworkException e) {
-                e.printStackTrace();
-            }
-        });
-    }
-
-
-    private void setListToAdapter() {
-        //adapter = new RecyclerAdapter(movies);
-        ((RecyclerAdapter) adapter).setOnClick(onItemClickListener());
-        recyclerView.setAdapter(adapter);
-    }
-
-    @NonNull
+    /*@NonNull
     private RecyclerAdapter.OnItemClicked onItemClickListener() {
         return new RecyclerAdapter.OnItemClicked() {
             @Override
@@ -161,21 +150,7 @@ public class ProgramsActivity extends AppCompatActivity {
 
             }
         };
-    }
-
-    private void setVideosToAdapter() {
-
-
-
-    }
-
-    /*private void setRecyclerViewComponents() {
-        recyclerView = findViewById(R.id.recycler_view);
-        layoutManager = new GridLayoutManager(this, 3);
-        recyclerView.setLayoutManager(layoutManager);
-        setListToAdapter();
     }*/
-
 
     private void setViewComponents() {
         BottomNavigationView navigation = findViewById(R.id.navigation);
@@ -211,8 +186,6 @@ public class ProgramsActivity extends AppCompatActivity {
                 LocalStorage.retrofitNetwork.getMoviesByQuery(query, new RequestCallback<Search>() {
                     @Override
                     public void onSuccess(Search response) {
-                        //movies = response.getResults();
-                        setListToAdapter();
                     }
 
                     @Override

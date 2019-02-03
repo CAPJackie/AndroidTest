@@ -1,9 +1,5 @@
 package com.rappi.movies.data.persistence;
-
-
-import com.rappi.movies.data.entities.Movie;
 import com.rappi.movies.data.entities.Program;
-import com.rappi.movies.data.entities.TvShow;
 import com.rappi.movies.data.network.RetrofitNetwork;
 
 import java.util.List;
@@ -62,14 +58,6 @@ public class LocalStorage {
 
     public static void setSelectedMovie(Program selectedMovie) {
         LocalStorage.selectedMovie = selectedMovie;
-    }
-
-    public static Program getSelectedTvShow() {
-        return selectedTvShow;
-    }
-
-    public static void setSelectedTvShow(Program selectedTvShow) {
-        LocalStorage.selectedTvShow = selectedTvShow;
     }
 
     public static List<Program> getPopularTvShows() {

@@ -23,9 +23,9 @@ import com.google.gson.Gson;
 import com.rappi.movies.R;
 import com.rappi.movies.data.entities.Movie;
 import com.rappi.movies.data.entities.Search;
-import com.rappi.movies.data.fragments.PopularMoviesFragment;
-import com.rappi.movies.data.fragments.TopRatedMoviesFragment;
-import com.rappi.movies.data.fragments.UpcomingMoviesFragment;
+import com.rappi.movies.data.fragments.PopularProgramsFragment;
+import com.rappi.movies.data.fragments.TopRatedProgramsFragment;
+import com.rappi.movies.data.fragments.UpcomingProgramsFragment;
 import com.rappi.movies.data.network.NetworkException;
 import com.rappi.movies.data.network.RecyclerAdapter;
 import com.rappi.movies.data.network.RequestCallback;
@@ -33,7 +33,7 @@ import com.rappi.movies.data.persistence.LocalStorage;
 
 import java.util.List;
 
-public class MoviesActivity extends AppCompatActivity {
+public class ProgramsActivity extends AppCompatActivity {
 
     private List<Movie> movies;
     private RecyclerView recyclerView;
@@ -49,9 +49,9 @@ public class MoviesActivity extends AppCompatActivity {
     private BottomNavigationView navigation;
     private FrameLayout mMainFrame;
 
-    private PopularMoviesFragment popularMoviesFragment;
-    private TopRatedMoviesFragment topRatedMoviesFragment;
-    private UpcomingMoviesFragment upcomingMoviesFragment;
+    private PopularProgramsFragment popularMoviesFragment;
+    private TopRatedProgramsFragment topRatedMoviesFragment;
+    private UpcomingProgramsFragment upcomingMoviesFragment;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -94,12 +94,9 @@ public class MoviesActivity extends AppCompatActivity {
                 .getDefaultSharedPreferences(this.getApplicationContext());
         gson = new Gson();
 
-        Fragment popularMovies = new PopularMoviesFragment();
-
-
-        popularMoviesFragment = new PopularMoviesFragment();
-        topRatedMoviesFragment = new TopRatedMoviesFragment();
-        upcomingMoviesFragment = new UpcomingMoviesFragment();
+        popularMoviesFragment = new PopularProgramsFragment();
+        //topRatedMoviesFragment = new TopRatedProgramsFragment();
+        //upcomingMoviesFragment = new UpcomingProgramsFragment();
 
         navigation = findViewById(R.id.navigation);
         mMainFrame = findViewById(R.id.main_frame);
@@ -172,12 +169,12 @@ public class MoviesActivity extends AppCompatActivity {
 
     }
 
-    private void setRecyclerViewComponents() {
+    /*private void setRecyclerViewComponents() {
         recyclerView = findViewById(R.id.recycler_view);
         layoutManager = new GridLayoutManager(this, 3);
         recyclerView.setLayoutManager(layoutManager);
         setListToAdapter();
-    }
+    }*/
 
 
     private void setViewComponents() {

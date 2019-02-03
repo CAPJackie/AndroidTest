@@ -30,7 +30,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.rappi.movies.data.ui.MoviesActivity"></activity>
+        <activity android:name="com.rappi.movies.data.ui.ProgramsActivity"></activity>
         <activity android:name=".data.ui.DetailActivity" />
         <activity android:name=".data.ui.LoadingDetailsActivity" />
     </application>

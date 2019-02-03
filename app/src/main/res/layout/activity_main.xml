@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@android:color/black"
-    tools:context="com.rappi.movies.data.ui.MoviesActivity">
+    tools:context="com.rappi.movies.data.ui.ProgramsActivity">
 
     <include
         android:id="@+id/app_bar"
@@ -23,12 +23,6 @@
         android:layout_weight="1">
 
     </FrameLayout>
-
-    <!--android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler_view"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" /-->
 
 
     <android.support.design.widget.BottomNavigationView

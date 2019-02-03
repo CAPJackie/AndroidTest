@@ -82,14 +82,14 @@ public class DetailActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Intent intent = new Intent(getApplicationContext(), MoviesActivity.class);
+        Intent intent = new Intent(getApplicationContext(), ProgramsActivity.class);
         startActivity(intent);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem menu) {
         if (menu.getItemId() == android.R.id.home) {
-            Intent intent = new Intent(getApplicationContext(), MoviesActivity.class);
+            Intent intent = new Intent(getApplicationContext(), ProgramsActivity.class);
             startActivity(intent);
         }
         return super.onOptionsItemSelected(menu);

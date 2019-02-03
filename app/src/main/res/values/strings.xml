@@ -12,4 +12,6 @@
     <string name="runtime">Runtime:</string>
     <string name="companies">Companies:</string>
     <string name="genres">Genres:</string>
+    <string name="movies">Movies</string>
+    <string name="tv_shows">Tv Shows</string>
 </resources>

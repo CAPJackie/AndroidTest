@@ -68,11 +68,6 @@ public class RetrofitNetwork implements Network {
         backgroundExecutor.execute(new Runnable() {
             @Override
             public void run() {
-                /*SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                Calendar c = Calendar.getInstance();
-                String firstDate = sdf.format(c.getTime());
-                c.add(Calendar.DATE, 10);
-                String secondDate = sdf.format(c.getTime());*/
                 Call<Search> call = networkService.getMovies(LocalStorage.UPCOMING_CATEGORY, LocalStorage.API_KEY, LocalStorage.DEFAULT_PAGE, Language.ENGLISH_UNITED_STATES);
                 try {
                     Response<Search> execute = call.execute();
@@ -219,8 +214,24 @@ public class RetrofitNetwork implements Network {
     }
 
     @Override
-    public void getUpcomingTvShows(RequestCallback<Search> requestCallback) {
-
+    public void getUpcomingTvShows(final RequestCallback<Search> requestCallback) {
+        backgroundExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                Calendar c = Calendar.getInstance();
+                String firstDate = sdf.format(c.getTime());
+                c.add(Calendar.DATE, 10);
+                String secondDate = sdf.format(c.getTime());
+                Call<Search> call = networkService.getUpcomingTvShows(LocalStorage.API_KEY, firstDate, secondDate, LocalStorage.DEFAULT_PAGE, Language.ENGLISH_UNITED_STATES);
+                try {
+                    Response<Search> execute = call.execute();
+                    requestCallback.onSuccess(execute.body());
+                } catch (Exception e) {
+                    requestCallback.onFailed(new NetworkException(null, e));
+                }
+            }
+        });
     }
 
 

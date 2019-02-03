@@ -54,16 +54,12 @@ public interface NetworkService {
 
 
 
-
-    /*@GET("discover/movie?sort_by=popularity.desc&api_key=" + LocalStorage.API_KEY)
-    Call<Search> getPopularMovies();
-
-
-    @GET("discover/movie?sort_by=vote_average.desc&api_key=" + LocalStorage.API_KEY)
-    Call<Search> getTopRatedMovies();
-
-    @GET("discover/movie?api_key=" + LocalStorage.API_KEY)
-    Call<Search> getUpcomingMovies(@Query("primary_release_date.gte") String firstDate, @Query("primary_release_date.gte") String secondDate);*/
+    @GET("discover/tv")
+    Call<Search> getUpcomingTvShows(@Query("api_key") String api_key,
+                                    @Query("first_air_date.gte") String greaterThan,
+                                    @Query("first_air_date.lte") String lessThan,
+                                    @Query("page") int page,
+                                    @Query("language") String language);
 
 
 }

@@ -19,7 +19,7 @@ import com.rappi.movies.data.ui.LoadingDetailsActivity;
 
 import java.util.List;
 
-public class TopRatedMoviesFragment extends Fragment {
+public class UpcomingProgramsFragment extends Fragment {
 
     private GridLayoutManager layoutManager;
     private List<Movie> movies;
@@ -31,8 +31,8 @@ public class TopRatedMoviesFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.movies_fragment, null);
         layoutManager = new GridLayoutManager(view.getContext(), 3);
-        //movies = LocalStorage.getTopRatedMovies();
-        recyclerView = view.findViewById(R.id.recycler_view);
+        //movies = LocalStorage.getUpcomingMovies();
+        recyclerView = view.findViewById(R.id.programs_recycler_view);
         recyclerView.setLayoutManager(layoutManager);
         //adapter = new RecyclerAdapter(movies);
         ((RecyclerAdapter) adapter).setOnClick(onItemClickListener(view));

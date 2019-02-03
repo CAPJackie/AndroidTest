@@ -2,6 +2,8 @@ package com.rappi.movies.data.persistence;
 
 
 import com.rappi.movies.data.entities.Movie;
+import com.rappi.movies.data.entities.Program;
+import com.rappi.movies.data.entities.TvShow;
 import com.rappi.movies.data.network.RetrofitNetwork;
 
 import java.util.List;
@@ -21,40 +23,76 @@ public class LocalStorage {
     public static final String MOVIE = "movie";
     public static final String TV_SHOW = "tv";
 
-    private static List<Movie> popularMovies;
-    private static List<Movie> topRatedMovies;
-    private static List<Movie> upcomingMovies;
-    private static Movie selectedMovie;
+    private static List<Program> popularMovies;
+    private static List<Program> topRatedMovies;
+    private static List<Program> upcomingMovies;
+    private static Program selectedMovie;
+    private static Program selectedTvShow;
+    private static List<Program> popularTvShows;
+    private static List<Program> topRatedTvShows;
+    private static List<Program> upcomingTvShows;
 
-    public static void setPopularMovies(List<Movie> popularMovies) {
+    public static List<Program> getPopularMovies() {
+        return popularMovies;
+    }
+
+    public static void setPopularMovies(List<Program> popularMovies) {
         LocalStorage.popularMovies = popularMovies;
     }
 
-    public static List<Movie> getPopularMovies() {
-        return LocalStorage.popularMovies;
+    public static List<Program> getTopRatedMovies() {
+        return topRatedMovies;
     }
 
-    public static void setSelectedMovie(Movie selectedMovie) {
-        LocalStorage.selectedMovie = selectedMovie;
-    }
-
-    public static Movie getSelectedMovie() {
-        return LocalStorage.selectedMovie;
-    }
-
-    public static List<Movie> getTopRatedMovies() {
-        return LocalStorage.topRatedMovies;
-    }
-
-    public static void setTopRatedMovies(List<Movie> topRatedMovies) {
+    public static void setTopRatedMovies(List<Program> topRatedMovies) {
         LocalStorage.topRatedMovies = topRatedMovies;
     }
 
-    public static List<Movie> getUpcomingMovies() {
+    public static List<Program> getUpcomingMovies() {
         return upcomingMovies;
     }
 
-    public static void setUpcomingMovies(List<Movie> upcomingMovies) {
+    public static void setUpcomingMovies(List<Program> upcomingMovies) {
         LocalStorage.upcomingMovies = upcomingMovies;
+    }
+
+    public static Program getSelectedMovie() {
+        return selectedMovie;
+    }
+
+    public static void setSelectedMovie(Program selectedMovie) {
+        LocalStorage.selectedMovie = selectedMovie;
+    }
+
+    public static Program getSelectedTvShow() {
+        return selectedTvShow;
+    }
+
+    public static void setSelectedTvShow(Program selectedTvShow) {
+        LocalStorage.selectedTvShow = selectedTvShow;
+    }
+
+    public static List<Program> getPopularTvShows() {
+        return popularTvShows;
+    }
+
+    public static void setPopularTvShows(List<Program> popularTvShows) {
+        LocalStorage.popularTvShows = popularTvShows;
+    }
+
+    public static List<Program> getTopRatedTvShows() {
+        return topRatedTvShows;
+    }
+
+    public static void setTopRatedTvShows(List<Program> topRatedTvShows) {
+        LocalStorage.topRatedTvShows = topRatedTvShows;
+    }
+
+    public static List<Program> getUpcomingTvShows() {
+        return upcomingTvShows;
+    }
+
+    public static void setUpcomingTvShows(List<Program> upcomingTvShows) {
+        LocalStorage.upcomingTvShows = upcomingTvShows;
     }
 }

@@ -114,7 +114,7 @@ public class MoviesActivity extends AppCompatActivity {
         LocalStorage.retrofitNetwork.getMoviesByQuery(searchQuery, new RequestCallback<Search>() {
             @Override
             public void onSuccess(Search response) {
-                List<Movie> movies = response.getResults();
+                //List<Movie> movies = response.getResults();
                 //LocalStorage.setQueryMovies(movies);
                 setListToAdapter();
             }
@@ -128,7 +128,7 @@ public class MoviesActivity extends AppCompatActivity {
 
 
     private void setListToAdapter() {
-        adapter = new RecyclerAdapter(movies);
+        //adapter = new RecyclerAdapter(movies);
         ((RecyclerAdapter) adapter).setOnClick(onItemClickListener());
         recyclerView.setAdapter(adapter);
     }
@@ -214,7 +214,7 @@ public class MoviesActivity extends AppCompatActivity {
                 LocalStorage.retrofitNetwork.getMoviesByQuery(query, new RequestCallback<Search>() {
                     @Override
                     public void onSuccess(Search response) {
-                        movies = response.getResults();
+                        //movies = response.getResults();
                         setListToAdapter();
                     }
 

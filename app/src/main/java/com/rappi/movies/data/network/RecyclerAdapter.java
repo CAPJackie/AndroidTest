@@ -3,14 +3,13 @@ package com.rappi.movies.data.network;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.rappi.movies.R;
-import com.rappi.movies.data.entities.Movie;
+import com.rappi.movies.data.entities.Program;
 import com.rappi.movies.data.persistence.LocalStorage;
 import com.squareup.picasso.Picasso;
 
@@ -18,13 +17,13 @@ import java.util.List;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
 
-    private List<Movie> movies;
+    private List<Program> programs;
 
     private OnItemClicked onClick;
 
 
-    public RecyclerAdapter(List<Movie> movies) {
-        this.movies = movies;
+    public RecyclerAdapter(List<Program> programs) {
+        this.programs = programs;
     }
 
 
@@ -38,12 +37,12 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, final int i) {
-        Movie movie = movies.get(i);
-        if(movie.getPoster_path()==null){
+        Program program = programs.get(i);
+        if(program.getPoster_path()==null){
             viewHolder.movieImage.setImageResource(R.drawable.incognita);
             viewHolder.movieImage.setAdjustViewBounds(true);
         } else{
-            Picasso.get().load(LocalStorage.IMGS_URL + movie.getPoster_path()).into(viewHolder.movieImage);
+            Picasso.get().load(LocalStorage.IMGS_URL + program.getPoster_path()).into(viewHolder.movieImage);
         }
 
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -60,7 +59,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
     @Override
     public int getItemCount() {
-        return movies == null ? 0: movies.size();
+        return programs == null ? 0: programs.size();
     }
 
     public interface OnItemClicked {

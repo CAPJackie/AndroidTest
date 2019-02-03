@@ -34,7 +34,7 @@ public class DetailsFragment extends Fragment {
     }
 
     private void initComponents(View view) {
-        selectedMovie = LocalStorage.getSelectedMovie();
+        //selectedMovie = LocalStorage.getSelectedMovie();
         originalTitle = view.findViewById(R.id.original_title_view);
         releaseDate = view.findViewById(R.id.release_date_view);
         homePage = view.findViewById(R.id.homepage_view);

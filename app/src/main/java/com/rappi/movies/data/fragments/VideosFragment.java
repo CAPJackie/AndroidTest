@@ -33,8 +33,8 @@ public class VideosFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.videos_fragment, null);
-        selectedMovie = LocalStorage.getSelectedMovie();
-        videos = selectedMovie.getResults();
+        //selectedMovie = LocalStorage.getSelectedMovie();
+        //videos = selectedMovie.getResults();
         setRecyclerViewComponents(view);
         return view;
     }

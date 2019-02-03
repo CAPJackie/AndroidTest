@@ -36,10 +36,10 @@ public class PopularMoviesFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.movies_fragment, null);
         layoutManager = new GridLayoutManager(view.getContext(), 3);
-        movies = LocalStorage.getPopularMovies();
+        //movies = LocalStorage.getPopularMovies();
         recyclerView = view.findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(layoutManager);
-        adapter = new RecyclerAdapter(movies);
+        //adapter = new RecyclerAdapter(movies);
         ((RecyclerAdapter) adapter).setOnClick(onItemClickListener(view));
         recyclerView.setAdapter(adapter);
         return view;

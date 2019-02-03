@@ -71,7 +71,7 @@ public class DetailActivity extends AppCompatActivity {
         movieDescription = findViewById(R.id.movie_description);
         ratingBar = findViewById(R.id.ratingBar);
         movieImage = findViewById(R.id.movie_image);
-        selectedMovie = LocalStorage.getSelectedMovie();
+        //selectedMovie = LocalStorage.getSelectedMovie();
         movieTittle.setText(selectedMovie.getTitle());
         movieDescription.setText(selectedMovie.getOverview());
         ratingBar.setRating((float) (selectedMovie.getVote_average() / 2));

@@ -14,7 +14,9 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.rappi.movies.R;
 import com.rappi.movies.data.entities.Movie;
+import com.rappi.movies.data.entities.Program;
 import com.rappi.movies.data.entities.Search;
+import com.rappi.movies.data.entities.TvShow;
 import com.rappi.movies.data.network.NetworkException;
 import com.rappi.movies.data.network.RequestCallback;
 import com.rappi.movies.data.persistence.LocalStorage;
@@ -46,22 +48,37 @@ public class LoadingDataActivity extends AppCompatActivity {
         gson = new Gson();
 
 
+        String defaultPopularTvShows = preferences.getString("popularTvShows", "");
+        String defaultTopRatedTvShows = preferences.getString("topRatedTvShows", "");
+        String defaultUpcomingTvShows = preferences.getString("upcomingTvShows", "");
         String defaultPopularMovies = preferences.getString("popularMovies", "");
         String defaultTopRatedMovies = preferences.getString("topRatedMovies", "");
         String defaultUpcomingMovies = preferences.getString("upcomingMovies", "");
-        if (!defaultPopularMovies.equals("") && !defaultTopRatedMovies.equals("") && !defaultUpcomingMovies.equals("")) {
+        if (!defaultPopularMovies.equals("") &&
+                !defaultTopRatedMovies.equals("") &&
+                !defaultUpcomingMovies.equals("") &&
+                !defaultPopularTvShows.equals("") &&
+                !defaultTopRatedTvShows.equals("") &&
+                !defaultUpcomingTvShows.equals("")) {
 
-            Type type = new TypeToken<List<Movie>>() {
+            Type type = new TypeToken<List<Program>>() {
             }.getType();
-            LocalStorage.setPopularMovies((List<Movie>) gson.fromJson(defaultPopularMovies, type));
-            LocalStorage.setTopRatedMovies((List<Movie>) gson.fromJson(defaultTopRatedMovies, type));
-            LocalStorage.setUpcomingMovies((List<Movie>) gson.fromJson(defaultUpcomingMovies, type));
+            LocalStorage.setPopularMovies((List<Program>) gson.fromJson(defaultPopularMovies, type));
+            LocalStorage.setTopRatedMovies((List<Program>) gson.fromJson(defaultTopRatedMovies, type));
+            LocalStorage.setUpcomingMovies((List<Program>) gson.fromJson(defaultUpcomingMovies, type));
 
-            Log.d("Popular", String.valueOf(LocalStorage.getPopularMovies()));
-            Log.d("TopRated", String.valueOf(LocalStorage.getTopRatedMovies()));
-            Log.d("Upcoming", String.valueOf(LocalStorage.getUpcomingMovies()));
+            Log.d("Popular Movies", String.valueOf(LocalStorage.getPopularMovies()));
+            Log.d("TopRated Movies", String.valueOf(LocalStorage.getTopRatedMovies()));
+            Log.d("Upcoming Movies", String.valueOf(LocalStorage.getUpcomingMovies()));
 
 
+            LocalStorage.setPopularTvShows((List<Program>) gson.fromJson(defaultPopularTvShows, type));
+            LocalStorage.setTopRatedTvShows((List<Program>) gson.fromJson(defaultTopRatedTvShows, type));
+            LocalStorage.setUpcomingTvShows((List<Program>) gson.fromJson(defaultUpcomingTvShows, type));
+
+            Log.d("Popular TvShows", String.valueOf(LocalStorage.getPopularTvShows()));
+            Log.d("TopRated TvShows", String.valueOf(LocalStorage.getTopRatedTvShows()));
+            Log.d("Upcoming TvShows", String.valueOf(LocalStorage.getUpcomingTvShows()));
 
             Intent intent = new Intent(getApplicationContext(), MoviesActivity.class);
             startActivity(intent);
@@ -71,7 +88,7 @@ public class LoadingDataActivity extends AppCompatActivity {
             LocalStorage.retrofitNetwork.getPopularMovies(new RequestCallback<Search>() {
                 @Override
                 public void onSuccess(Search response) {
-                    List<Movie> movies = response.getResults();
+                    List<Program> movies = response.getResults();
                     LocalStorage.setPopularMovies(movies);
 
                     SharedPreferences.Editor prefsEditor = preferences.edit();
@@ -82,7 +99,7 @@ public class LoadingDataActivity extends AppCompatActivity {
                     LocalStorage.retrofitNetwork.getTopRatedMovies(new RequestCallback<Search>() {
                         @Override
                         public void onSuccess(Search response) {
-                            List<Movie> movies = response.getResults();
+                            List<Program> movies = response.getResults();
                             LocalStorage.setTopRatedMovies(movies);
 
                             SharedPreferences.Editor prefsEditor = preferences.edit();
@@ -93,7 +110,7 @@ public class LoadingDataActivity extends AppCompatActivity {
                             LocalStorage.retrofitNetwork.getUpcomingMovies(new RequestCallback<Search>() {
                                 @Override
                                 public void onSuccess(Search response) {
-                                    List<Movie> movies = response.getResults();
+                                    List<Program> movies = response.getResults();
                                     LocalStorage.setUpcomingMovies(movies);
 
                                     SharedPreferences.Editor prefsEditor = preferences.edit();
@@ -101,14 +118,75 @@ public class LoadingDataActivity extends AppCompatActivity {
                                     prefsEditor.putString("upcomingMovies", jsonUpcomingMovies);
                                     prefsEditor.apply();
 
-                                    Log.d("Popular", String.valueOf(LocalStorage.getPopularMovies()));
-                                    Log.d("TopRated", String.valueOf(LocalStorage.getTopRatedMovies()));
-                                    Log.d("Upcoming", String.valueOf(LocalStorage.getUpcomingMovies()));
+                                    Log.d("Popular Movies", String.valueOf(LocalStorage.getPopularMovies()));
+                                    Log.d("TopRated Movies", String.valueOf(LocalStorage.getTopRatedMovies()));
+                                    Log.d("Upcoming Movies", String.valueOf(LocalStorage.getUpcomingMovies()));
 
-                                    animation.stop();
 
-                                    Intent intent = new Intent(getApplicationContext(), MoviesActivity.class);
-                                    startActivity(intent);
+                                    LocalStorage.retrofitNetwork.getPopularTvShows(new RequestCallback<Search>() {
+                                        @Override
+                                        public void onSuccess(Search response) {
+                                            List<Program> tvShows = response.getResults();
+                                            LocalStorage.setPopularTvShows(tvShows);
+
+                                            SharedPreferences.Editor prefsEditor = preferences.edit();
+                                            String jsonPopularTvShows = gson.toJson(tvShows);
+                                            prefsEditor.putString("popularTvShows", jsonPopularTvShows);
+                                            prefsEditor.apply();
+
+                                            LocalStorage.retrofitNetwork.getTopRatedTvShows(new RequestCallback<Search>() {
+                                                @Override
+                                                public void onSuccess(Search response) {
+                                                    List<Program> tvShows = response.getResults();
+                                                    LocalStorage.setTopRatedTvShows(tvShows);
+
+                                                    SharedPreferences.Editor prefsEditor = preferences.edit();
+                                                    String jsonTopRatedTvShows = gson.toJson(tvShows);
+                                                    prefsEditor.putString("topRatedTvShows", jsonTopRatedTvShows);
+                                                    prefsEditor.apply();
+
+                                                    LocalStorage.retrofitNetwork.getUpcomingMovies(new RequestCallback<Search>() {
+                                                        @Override
+                                                        public void onSuccess(Search response) {
+                                                            List<Program> tvShows = response.getResults();
+                                                            LocalStorage.setUpcomingTvShows(tvShows);
+
+                                                            SharedPreferences.Editor prefsEditor = preferences.edit();
+                                                            String jsonUpcomingTvShows = gson.toJson(tvShows);
+                                                            prefsEditor.putString("upcomingTvShows", jsonUpcomingTvShows);
+                                                            prefsEditor.apply();
+
+
+                                                            Log.d("Popular TvShows", String.valueOf(LocalStorage.getPopularTvShows()));
+                                                            Log.d("TopRated TvShows", String.valueOf(LocalStorage.getTopRatedTvShows()));
+                                                            Log.d("Upcoming TvShows", String.valueOf(LocalStorage.getUpcomingTvShows()));
+
+                                                            /*Intent intent = new Intent(getApplicationContext(), MoviesActivity.class);
+                                                            startActivity(intent);*/
+
+                                                        }
+
+                                                        @Override
+                                                        public void onFailed(NetworkException e) {
+                                                            e.printStackTrace();
+                                                        }
+                                                    });
+                                                }
+
+                                                @Override
+                                                public void onFailed(NetworkException e) {
+                                                    e.printStackTrace();
+                                                }
+                                            });
+                                        }
+
+                                        @Override
+                                        public void onFailed(NetworkException e) {
+                                            e.printStackTrace();
+                                        }
+                                    });
+
+
 
 
                                 }

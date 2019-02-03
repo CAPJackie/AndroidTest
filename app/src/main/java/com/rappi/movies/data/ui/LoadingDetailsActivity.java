@@ -38,7 +38,7 @@ public class LoadingDetailsActivity extends AppCompatActivity {
                 .getDefaultSharedPreferences(this.getApplicationContext());
         gson = new Gson();
 
-        selectedMovie = LocalStorage.getSelectedMovie();
+        //selectedMovie = LocalStorage.getSelectedMovie();
 
         String defaultMovie = preferences.getString("movie" + selectedMovie.getId(), "");
         if (!defaultMovie.equals("")) {
@@ -72,17 +72,17 @@ public class LoadingDetailsActivity extends AppCompatActivity {
         if (!videos.equals("")) {
             Type type = new TypeToken<List<Video>>() {
             }.getType();
-            LocalStorage.getSelectedMovie().setResults((List<Video>) gson.fromJson(videos, type));
+            //LocalStorage.getSelectedMovie().setResults((List<Video>) gson.fromJson(videos, type));
             Intent intent = new Intent(getApplicationContext(), DetailActivity.class);
             startActivity(intent);
         } else {
             LocalStorage.retrofitNetwork.getMovieVideos(LocalStorage.getSelectedMovie().getId(), new RequestCallback<Movie>() {
                 @Override
                 public void onSuccess(Movie response) {
-                    LocalStorage.getSelectedMovie().setResults(response.getResults());
+                    //LocalStorage.getSelectedMovie().setResults(response.getResults());
                     SharedPreferences.Editor prefsEditor = preferences.edit();
-                    String jsonVideos = gson.toJson(LocalStorage.getSelectedMovie().getResults());
-                    prefsEditor.putString("videos" + LocalStorage.getSelectedMovie().getId(), jsonVideos);
+                    //String jsonVideos = gson.toJson(LocalStorage.getSelectedMovie().getResults());
+                    //prefsEditor.putString("videos" + LocalStorage.getSelectedMovie().getId(), jsonVideos);
                     prefsEditor.apply();
                     Intent intent = new Intent(getApplicationContext(), DetailActivity.class);
                     startActivity(intent);

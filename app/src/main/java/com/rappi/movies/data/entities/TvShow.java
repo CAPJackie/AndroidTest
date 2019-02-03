@@ -6,166 +6,76 @@ import java.util.Objects;
 
 public class TvShow extends Program implements Serializable {
 
-    private String backdropPath;
-    private List<Productor> createdBy;
-    private List<Integer> episodeRunTime;
-    private String firstAirDate;
-    private List<Genre> genres;
-    private String homepage;
-    private Integer id;
-    private Boolean inProduction;
+    private List<Productor> created_by;
+    private List<Integer> episode_run_time;
+    private String first_air_date;
+    private Boolean in_production;
     private List<String> languages;
-    private String lastAirDate;
-    private Episode lastEpisodeToAir;
+    private String last_air_date;
+    private Episode last_episode_to_air;
     private String name;
-    private Episode nextEpisodeToAir;
+    private Episode next_episode_to_air;
     private List<Network> networks;
-    private Integer numberOfEpisodes;
-    private Integer numberOfSeasons;
-    private List<String> originCountry;
-    private String originalLanguage;
-    private String originalName;
-    private String overview;
-    private Double popularity;
-    private String posterPath;
-    private List<Company> productionCompanies;
+    private Integer number_of_episodes;
+    private Integer number_of_seasons;
+    private List<String> origin_country;
+    private String original_name;
     private List<Season> seasons;
-    private String status;
     private String type;
-    private Double voteAverage;
-    private Integer voteCount;
     private final static long serialVersionUID = -493996423190927632L;
 
-    /**
-     * No args constructor for use in serialization
-     */
-    public TvShow() {
-    }
+    public TvShow(){}
 
-    /**
-     * @param genres
-     * @param originalName
-     * @param type
-     * @param backdropPath
-     * @param voteCount
-     * @param id
-     * @param nextEpisodeToAir
-     * @param numberOfEpisodes
-     * @param languages
-     * @param originCountry
-     * @param inProduction
-     * @param name
-     * @param posterPath
-     * @param voteAverage
-     * @param popularity
-     * @param networks
-     * @param status
-     * @param lastAirDate
-     * @param lastEpisodeToAir
-     * @param numberOfSeasons
-     * @param originalLanguage
-     * @param homepage
-     * @param createdBy
-     * @param overview
-     * @param seasons
-     * @param firstAirDate
-     * @param productionCompanies
-     * @param episodeRunTime
-     */
-    public TvShow(String backdropPath, List<Productor> createdBy, List<Integer> episodeRunTime, String firstAirDate, List<Genre> genres, String homepage, Integer id, Boolean inProduction, List<String> languages, String lastAirDate, Episode lastEpisodeToAir, String name, Episode nextEpisodeToAir, List<Network> networks, Integer numberOfEpisodes, Integer numberOfSeasons, List<String> originCountry, String originalLanguage, String originalName, String overview, Double popularity, String posterPath, List<Company> productionCompanies, List<Season> seasons, String status, String type, Double voteAverage, Integer voteCount) {
-        super();
-        this.backdropPath = backdropPath;
-        this.createdBy = createdBy;
-        this.episodeRunTime = episodeRunTime;
-        this.firstAirDate = firstAirDate;
-        this.genres = genres;
-        this.homepage = homepage;
-        this.id = id;
-        this.inProduction = inProduction;
+    public TvShow(Integer id, String backdrop_path, String poster_path, List<Genre> genres, String homepage, String original_language, String overview, Double popularity, List<Company> production_companies, String status, Double vote_average, Integer vote_count, List<Productor> created_by, List<Integer> episode_run_time, String first_air_date, Boolean in_production, List<String> languages, String last_air_date, Episode last_episode_to_air, String name, Episode next_episode_to_air, List<Network> networks, Integer number_of_episodes, Integer number_of_seasons, List<String> origin_country, String original_name, List<Season> seasons, String type) {
+        super(id, backdrop_path, poster_path, genres, homepage, original_language, overview, popularity, production_companies, status, vote_average, vote_count);
+        this.created_by = created_by;
+        this.episode_run_time = episode_run_time;
+        this.first_air_date = first_air_date;
+        this.in_production = in_production;
         this.languages = languages;
-        this.lastAirDate = lastAirDate;
-        this.lastEpisodeToAir = lastEpisodeToAir;
+        this.last_air_date = last_air_date;
+        this.last_episode_to_air = last_episode_to_air;
         this.name = name;
-        this.nextEpisodeToAir = nextEpisodeToAir;
+        this.next_episode_to_air = next_episode_to_air;
         this.networks = networks;
-        this.numberOfEpisodes = numberOfEpisodes;
-        this.numberOfSeasons = numberOfSeasons;
-        this.originCountry = originCountry;
-        this.originalLanguage = originalLanguage;
-        this.originalName = originalName;
-        this.overview = overview;
-        this.popularity = popularity;
-        this.posterPath = posterPath;
-        this.productionCompanies = productionCompanies;
+        this.number_of_episodes = number_of_episodes;
+        this.number_of_seasons = number_of_seasons;
+        this.origin_country = origin_country;
+        this.original_name = original_name;
         this.seasons = seasons;
-        this.status = status;
         this.type = type;
-        this.voteAverage = voteAverage;
-        this.voteCount = voteCount;
     }
 
-    public String getBackdropPath() {
-        return backdropPath;
+    public List<Productor> getCreated_by() {
+        return created_by;
     }
 
-    public void setBackdropPath(String backdropPath) {
-        this.backdropPath = backdropPath;
+    public void setCreated_by(List<Productor> created_by) {
+        this.created_by = created_by;
     }
 
-    public List<Productor> getCreatedBy() {
-        return createdBy;
+    public List<Integer> getEpisode_run_time() {
+        return episode_run_time;
     }
 
-    public void setCreatedBy(List<Productor> createdBy) {
-        this.createdBy = createdBy;
+    public void setEpisode_run_time(List<Integer> episode_run_time) {
+        this.episode_run_time = episode_run_time;
     }
 
-    public List<Integer> getEpisodeRunTime() {
-        return episodeRunTime;
+    public String getFirst_air_date() {
+        return first_air_date;
     }
 
-    public void setEpisodeRunTime(List<Integer> episodeRunTime) {
-        this.episodeRunTime = episodeRunTime;
+    public void setFirst_air_date(String first_air_date) {
+        this.first_air_date = first_air_date;
     }
 
-    public String getFirstAirDate() {
-        return firstAirDate;
+    public Boolean getIn_production() {
+        return in_production;
     }
 
-    public void setFirstAirDate(String firstAirDate) {
-        this.firstAirDate = firstAirDate;
-    }
-
-    public List<Genre> getGenres() {
-        return genres;
-    }
-
-    public void setGenres(List<Genre> genres) {
-        this.genres = genres;
-    }
-
-    public String getHomepage() {
-        return homepage;
-    }
-
-    public void setHomepage(String homepage) {
-        this.homepage = homepage;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Boolean getInProduction() {
-        return inProduction;
-    }
-
-    public void setInProduction(Boolean inProduction) {
-        this.inProduction = inProduction;
+    public void setIn_production(Boolean in_production) {
+        this.in_production = in_production;
     }
 
     public List<String> getLanguages() {
@@ -176,20 +86,20 @@ public class TvShow extends Program implements Serializable {
         this.languages = languages;
     }
 
-    public String getLastAirDate() {
-        return lastAirDate;
+    public String getLast_air_date() {
+        return last_air_date;
     }
 
-    public void setLastAirDate(String lastAirDate) {
-        this.lastAirDate = lastAirDate;
+    public void setLast_air_date(String last_air_date) {
+        this.last_air_date = last_air_date;
     }
 
-    public Episode getLastEpisodeToAir() {
-        return lastEpisodeToAir;
+    public Episode getLast_episode_to_air() {
+        return last_episode_to_air;
     }
 
-    public void setLastEpisodeToAir(Episode lastEpisodeToAir) {
-        this.lastEpisodeToAir = lastEpisodeToAir;
+    public void setLast_episode_to_air(Episode last_episode_to_air) {
+        this.last_episode_to_air = last_episode_to_air;
     }
 
     public String getName() {
@@ -200,12 +110,12 @@ public class TvShow extends Program implements Serializable {
         this.name = name;
     }
 
-    public Episode getNextEpisodeToAir() {
-        return nextEpisodeToAir;
+    public Episode getNext_episode_to_air() {
+        return next_episode_to_air;
     }
 
-    public void setNextEpisodeToAir(Episode nextEpisodeToAir) {
-        this.nextEpisodeToAir = nextEpisodeToAir;
+    public void setNext_episode_to_air(Episode next_episode_to_air) {
+        this.next_episode_to_air = next_episode_to_air;
     }
 
     public List<Network> getNetworks() {
@@ -216,76 +126,36 @@ public class TvShow extends Program implements Serializable {
         this.networks = networks;
     }
 
-    public Integer getNumberOfEpisodes() {
-        return numberOfEpisodes;
+    public Integer getNumber_of_episodes() {
+        return number_of_episodes;
     }
 
-    public void setNumberOfEpisodes(Integer numberOfEpisodes) {
-        this.numberOfEpisodes = numberOfEpisodes;
+    public void setNumber_of_episodes(Integer number_of_episodes) {
+        this.number_of_episodes = number_of_episodes;
     }
 
-    public Integer getNumberOfSeasons() {
-        return numberOfSeasons;
+    public Integer getNumber_of_seasons() {
+        return number_of_seasons;
     }
 
-    public void setNumberOfSeasons(Integer numberOfSeasons) {
-        this.numberOfSeasons = numberOfSeasons;
+    public void setNumber_of_seasons(Integer number_of_seasons) {
+        this.number_of_seasons = number_of_seasons;
     }
 
-    public List<String> getOriginCountry() {
-        return originCountry;
+    public List<String> getOrigin_country() {
+        return origin_country;
     }
 
-    public void setOriginCountry(List<String> originCountry) {
-        this.originCountry = originCountry;
+    public void setOrigin_country(List<String> origin_country) {
+        this.origin_country = origin_country;
     }
 
-    public String getOriginalLanguage() {
-        return originalLanguage;
+    public String getOriginal_name() {
+        return original_name;
     }
 
-    public void setOriginalLanguage(String originalLanguage) {
-        this.originalLanguage = originalLanguage;
-    }
-
-    public String getOriginalName() {
-        return originalName;
-    }
-
-    public void setOriginalName(String originalName) {
-        this.originalName = originalName;
-    }
-
-    public String getOverview() {
-        return overview;
-    }
-
-    public void setOverview(String overview) {
-        this.overview = overview;
-    }
-
-    public Double getPopularity() {
-        return popularity;
-    }
-
-    public void setPopularity(Double popularity) {
-        this.popularity = popularity;
-    }
-
-    public String getPosterPath() {
-        return posterPath;
-    }
-
-    public void setPosterPath(String posterPath) {
-        this.posterPath = posterPath;
-    }
-
-    public List<Company> getProductionCompanies() {
-        return productionCompanies;
-    }
-
-    public void setProductionCompanies(List<Company> productionCompanies) {
-        this.productionCompanies = productionCompanies;
+    public void setOriginal_name(String original_name) {
+        this.original_name = original_name;
     }
 
     public List<Season> getSeasons() {
@@ -296,14 +166,6 @@ public class TvShow extends Program implements Serializable {
         this.seasons = seasons;
     }
 
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
     public String getType() {
         return type;
     }
@@ -312,20 +174,8 @@ public class TvShow extends Program implements Serializable {
         this.type = type;
     }
 
-    public Double getVoteAverage() {
-        return voteAverage;
-    }
-
-    public void setVoteAverage(Double voteAverage) {
-        this.voteAverage = voteAverage;
-    }
-
-    public Integer getVoteCount() {
-        return voteCount;
-    }
-
-    public void setVoteCount(Integer voteCount) {
-        this.voteCount = voteCount;
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
     }
 
     @Override
@@ -333,73 +183,49 @@ public class TvShow extends Program implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         TvShow tvShow = (TvShow) o;
-        return Objects.equals(backdropPath, tvShow.backdropPath) &&
-                Objects.equals(createdBy, tvShow.createdBy) &&
-                Objects.equals(episodeRunTime, tvShow.episodeRunTime) &&
-                Objects.equals(firstAirDate, tvShow.firstAirDate) &&
-                Objects.equals(genres, tvShow.genres) &&
-                Objects.equals(homepage, tvShow.homepage) &&
-                Objects.equals(id, tvShow.id) &&
-                Objects.equals(inProduction, tvShow.inProduction) &&
+        return Objects.equals(created_by, tvShow.created_by) &&
+                Objects.equals(episode_run_time, tvShow.episode_run_time) &&
+                Objects.equals(first_air_date, tvShow.first_air_date) &&
+                Objects.equals(in_production, tvShow.in_production) &&
                 Objects.equals(languages, tvShow.languages) &&
-                Objects.equals(lastAirDate, tvShow.lastAirDate) &&
-                Objects.equals(lastEpisodeToAir, tvShow.lastEpisodeToAir) &&
+                Objects.equals(last_air_date, tvShow.last_air_date) &&
+                Objects.equals(last_episode_to_air, tvShow.last_episode_to_air) &&
                 Objects.equals(name, tvShow.name) &&
-                Objects.equals(nextEpisodeToAir, tvShow.nextEpisodeToAir) &&
+                Objects.equals(next_episode_to_air, tvShow.next_episode_to_air) &&
                 Objects.equals(networks, tvShow.networks) &&
-                Objects.equals(numberOfEpisodes, tvShow.numberOfEpisodes) &&
-                Objects.equals(numberOfSeasons, tvShow.numberOfSeasons) &&
-                Objects.equals(originCountry, tvShow.originCountry) &&
-                Objects.equals(originalLanguage, tvShow.originalLanguage) &&
-                Objects.equals(originalName, tvShow.originalName) &&
-                Objects.equals(overview, tvShow.overview) &&
-                Objects.equals(popularity, tvShow.popularity) &&
-                Objects.equals(posterPath, tvShow.posterPath) &&
-                Objects.equals(productionCompanies, tvShow.productionCompanies) &&
+                Objects.equals(number_of_episodes, tvShow.number_of_episodes) &&
+                Objects.equals(number_of_seasons, tvShow.number_of_seasons) &&
+                Objects.equals(origin_country, tvShow.origin_country) &&
+                Objects.equals(original_name, tvShow.original_name) &&
                 Objects.equals(seasons, tvShow.seasons) &&
-                Objects.equals(status, tvShow.status) &&
-                Objects.equals(type, tvShow.type) &&
-                Objects.equals(voteAverage, tvShow.voteAverage) &&
-                Objects.equals(voteCount, tvShow.voteCount);
-    }
-
-    @Override
-    public int hashCode() {
-
-        return Objects.hash(backdropPath, createdBy, episodeRunTime, firstAirDate, genres, homepage, id, inProduction, languages, lastAirDate, lastEpisodeToAir, name, nextEpisodeToAir, networks, numberOfEpisodes, numberOfSeasons, originCountry, originalLanguage, originalName, overview, popularity, posterPath, productionCompanies, seasons, status, type, voteAverage, voteCount);
+                Objects.equals(type, tvShow.type);
     }
 
     @Override
     public String toString() {
         return "TvShow{" +
-                "backdropPath='" + backdropPath + '\'' +
-                ", createdBy=" + createdBy +
-                ", episodeRunTime=" + episodeRunTime +
-                ", firstAirDate='" + firstAirDate + '\'' +
-                ", genres=" + genres +
-                ", homepage='" + homepage + '\'' +
-                ", id=" + id +
-                ", inProduction=" + inProduction +
+                "created_by=" + created_by +
+                ", episode_run_time=" + episode_run_time +
+                ", first_air_date='" + first_air_date + '\'' +
+                ", in_production=" + in_production +
                 ", languages=" + languages +
-                ", lastAirDate='" + lastAirDate + '\'' +
-                ", lastEpisodeToAir=" + lastEpisodeToAir +
+                ", last_air_date='" + last_air_date + '\'' +
+                ", last_episode_to_air=" + last_episode_to_air +
                 ", name='" + name + '\'' +
-                ", nextEpisodeToAir=" + nextEpisodeToAir +
+                ", next_episode_to_air=" + next_episode_to_air +
                 ", networks=" + networks +
-                ", numberOfEpisodes=" + numberOfEpisodes +
-                ", numberOfSeasons=" + numberOfSeasons +
-                ", originCountry=" + originCountry +
-                ", originalLanguage='" + originalLanguage + '\'' +
-                ", originalName='" + originalName + '\'' +
-                ", overview='" + overview + '\'' +
-                ", popularity=" + popularity +
-                ", posterPath='" + posterPath + '\'' +
-                ", productionCompanies=" + productionCompanies +
+                ", number_of_episodes=" + number_of_episodes +
+                ", number_of_seasons=" + number_of_seasons +
+                ", origin_country=" + origin_country +
+                ", original_name='" + original_name + '\'' +
                 ", seasons=" + seasons +
-                ", status='" + status + '\'' +
                 ", type='" + type + '\'' +
-                ", voteAverage=" + voteAverage +
-                ", voteCount=" + voteCount +
                 '}';
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(created_by, episode_run_time, first_air_date, in_production, languages, last_air_date, last_episode_to_air, name, next_episode_to_air, networks, number_of_episodes, number_of_seasons, origin_country, original_name, seasons, type);
     }
 }

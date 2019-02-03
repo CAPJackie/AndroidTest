@@ -12,13 +12,13 @@ import retrofit2.http.Query;
 
 public interface NetworkService {
 
-    @GET("/movie/{category}")
+    @GET("movie/{category}")
     Call<Search> getMovies(@Path("category") String category,
                            @Query("api_key") String apiKey,
                            @Query("page") int page,
                            @Query("language") String language);
 
-    @GET("/movie/{movieId}")
+    @GET("movie/{movieId}")
     Call<Movie> getMovieById(@Path("movieId") int movieId,
                              @Query("api_key") String apiKey);
 
@@ -27,7 +27,7 @@ public interface NetworkService {
                                @Query("api_key") String apiKey);
 
 
-    @GET("/search/{type}")
+    @GET("search/{type}")
     Call<Search> getSearchByQuery(@Path("type") String type,
                                   @Query("query") String query,
                                   @Query("api_key") String apiKey,
@@ -36,14 +36,14 @@ public interface NetworkService {
 
 
 
-    @GET("/tv/{category}")
+    @GET("tv/{category}")
     Call<Search> getTvShows(@Path("category") String category,
                             @Query("api_key") String apiKey,
                             @Query("page") int page,
                             @Query("language") String language);
 
 
-    @GET("/tv/{tvShowId}")
+    @GET("tv/{tvShowId}")
     Call<TvShow> getTvShowById(@Path("tvShowId") int tvShowId,
                                @Query("api_key") String apiKey);
 

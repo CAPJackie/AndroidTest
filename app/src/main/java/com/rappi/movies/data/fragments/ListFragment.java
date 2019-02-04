@@ -38,7 +38,7 @@ public class ListFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.programs_list_fragment, null);
-        programs = (ArrayList<Program>) getArguments().getSerializable("list");
+        programs = getArguments()==null?new ArrayList<Program>():(ArrayList<Program>) getArguments().getSerializable("list");
         layoutManager = new GridLayoutManager(view.getContext(), 3);
         recyclerView = view.findViewById(R.id.programs_recycler_view);
         recyclerView.setLayoutManager(layoutManager);

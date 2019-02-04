@@ -7,15 +7,13 @@ public class Search {
     private int page;
     private int total_results;
     private int total_pages;
-    private List<Program> results;
 
     public Search(){}
 
-    public Search(int page, int total_results, int total_pages, List<Program> results) {
+    public Search(int page, int total_results, int total_pages) {
         this.page = page;
         this.total_results = total_results;
         this.total_pages = total_pages;
-        this.results = results;
     }
 
 
@@ -43,13 +41,6 @@ public class Search {
         this.total_pages = total_pages;
     }
 
-    public List<Program> getResults() {
-        return results;
-    }
-
-    public void setResults(List<Program> results) {
-        this.results = results;
-    }
 
     @Override
     public String toString() {
@@ -57,7 +48,7 @@ public class Search {
                 "page=" + page +
                 ", total_results=" + total_results +
                 ", total_pages=" + total_pages +
-                ", results=" + results +
+                ", results=" +
                 '}';
     }
 
@@ -68,13 +59,12 @@ public class Search {
         Search that = (Search) o;
         return page == that.page &&
                 total_results == that.total_results &&
-                total_pages == that.total_pages &&
-                Objects.equals(results, that.results);
+                total_pages == that.total_pages;
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(page, total_results, total_pages, results);
+        return Objects.hash(page, total_results, total_pages);
     }
 }

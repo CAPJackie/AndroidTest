@@ -1,12 +1,11 @@
 package com.rappi.movies.data.network;
 
 
-import android.support.v7.app.AppCompatActivity;
-
-import com.rappi.movies.R;
 import com.rappi.movies.data.entities.Language;
 import com.rappi.movies.data.entities.Movie;
+import com.rappi.movies.data.entities.MovieSearch;
 import com.rappi.movies.data.entities.Search;
+import com.rappi.movies.data.entities.TvSearch;
 import com.rappi.movies.data.entities.TvShow;
 import com.rappi.movies.data.persistence.LocalStorage;
 
@@ -31,13 +30,13 @@ public class RetrofitNetwork implements Network {
     }
 
     @Override
-    public void getPopularMovies(final RequestCallback<Search> requestCallback) {
+    public void getPopularMovies(final RequestCallback<MovieSearch> requestCallback) {
         backgroundExecutor.execute(new Runnable() {
             @Override
             public void run() {
-                Call<Search> call = networkService.getMovies(LocalStorage.POPULAR_CATEGORY, LocalStorage.API_KEY, LocalStorage.DEFAULT_PAGE, Language.ENGLISH_UNITED_STATES);
+                Call<MovieSearch> call = networkService.getMovies(LocalStorage.POPULAR_CATEGORY, LocalStorage.API_KEY, LocalStorage.DEFAULT_PAGE, Language.ENGLISH_UNITED_STATES);
                 try {
-                    Response<Search> execute = call.execute();
+                    Response<MovieSearch> execute = call.execute();
                     requestCallback.onSuccess(execute.body());
                 } catch (Exception e) {
                     requestCallback.onFailed(new NetworkException(null, e));
@@ -48,13 +47,13 @@ public class RetrofitNetwork implements Network {
 
 
     @Override
-    public void getTopRatedMovies(final RequestCallback<Search> requestCallback) {
+    public void getTopRatedMovies(final RequestCallback<MovieSearch> requestCallback) {
         backgroundExecutor.execute(new Runnable() {
             @Override
             public void run() {
-                Call<Search> call = networkService.getMovies(LocalStorage.TOP_RATED_CATEGORY, LocalStorage.API_KEY, LocalStorage.DEFAULT_PAGE, Language.ENGLISH_UNITED_STATES);
+                Call<MovieSearch> call = networkService.getMovies(LocalStorage.TOP_RATED_CATEGORY, LocalStorage.API_KEY, LocalStorage.DEFAULT_PAGE, Language.ENGLISH_UNITED_STATES);
                 try {
-                    Response<Search> execute = call.execute();
+                    Response<MovieSearch> execute = call.execute();
                     requestCallback.onSuccess(execute.body());
                 } catch (Exception e) {
                     requestCallback.onFailed(new NetworkException(null, e));
@@ -64,13 +63,13 @@ public class RetrofitNetwork implements Network {
     }
 
     @Override
-    public void getUpcomingMovies(final RequestCallback<Search> requestCallback) {
+    public void getUpcomingMovies(final RequestCallback<MovieSearch> requestCallback) {
         backgroundExecutor.execute(new Runnable() {
             @Override
             public void run() {
-                Call<Search> call = networkService.getMovies(LocalStorage.UPCOMING_CATEGORY, LocalStorage.API_KEY, LocalStorage.DEFAULT_PAGE, Language.ENGLISH_UNITED_STATES);
+                Call<MovieSearch> call = networkService.getMovies(LocalStorage.UPCOMING_CATEGORY, LocalStorage.API_KEY, LocalStorage.DEFAULT_PAGE, Language.ENGLISH_UNITED_STATES);
                 try {
-                    Response<Search> execute = call.execute();
+                    Response<MovieSearch> execute = call.execute();
                     requestCallback.onSuccess(execute.body());
                 } catch (Exception e) {
                     requestCallback.onFailed(new NetworkException(null, e));
@@ -80,30 +79,13 @@ public class RetrofitNetwork implements Network {
     }
 
     @Override
-    public void getMoviesByQuery(final String query, final RequestCallback<Search> requestCallback) {
+    public void getMovieSearchByQuery(final String query, final RequestCallback<MovieSearch> requestCallback) {
         backgroundExecutor.execute(new Runnable() {
             @Override
             public void run() {
-                Call<Search> call = networkService.getSearchByQuery(LocalStorage.MOVIE, query, LocalStorage.API_KEY, LocalStorage.DEFAULT_PAGE, Language.ENGLISH_UNITED_STATES);
+                Call<MovieSearch> call = networkService.getMovieSearchByQuery(query, LocalStorage.API_KEY, LocalStorage.DEFAULT_PAGE, Language.ENGLISH_UNITED_STATES);
                 try {
-                    Response<Search> execute = call.execute();
-                    requestCallback.onSuccess(execute.body());
-                } catch (Exception e) {
-                    requestCallback.onFailed(new NetworkException(null, e));
-                }
-            }
-        });
-    }
-
-
-    @Override
-    public void getTvShowsByQuery(final String query, final RequestCallback<Search> requestCallback) {
-        backgroundExecutor.execute(new Runnable() {
-            @Override
-            public void run() {
-                Call<Search> call = networkService.getSearchByQuery(LocalStorage.TV_SHOW, query, LocalStorage.API_KEY, LocalStorage.DEFAULT_PAGE, Language.ENGLISH_UNITED_STATES);
-                try {
-                    Response<Search> execute = call.execute();
+                    Response<MovieSearch> execute = call.execute();
                     requestCallback.onSuccess(execute.body());
                 } catch (Exception e) {
                     requestCallback.onFailed(new NetworkException(null, e));
@@ -182,13 +164,13 @@ public class RetrofitNetwork implements Network {
     }
 
     @Override
-    public void getPopularTvShows(final RequestCallback<Search> requestCallback) {
+    public void getPopularTvShows(final RequestCallback<TvSearch> requestCallback) {
         backgroundExecutor.execute(new Runnable() {
             @Override
             public void run() {
-                Call<Search> call = networkService.getTvShows(LocalStorage.POPULAR_CATEGORY, LocalStorage.API_KEY, LocalStorage.DEFAULT_PAGE, Language.ENGLISH_UNITED_STATES);
+                Call<TvSearch> call = networkService.getTvShows(LocalStorage.POPULAR_CATEGORY, LocalStorage.API_KEY, LocalStorage.DEFAULT_PAGE, Language.ENGLISH_UNITED_STATES);
                 try {
-                    Response<Search> execute = call.execute();
+                    Response<TvSearch> execute = call.execute();
                     requestCallback.onSuccess(execute.body());
                 } catch (Exception e) {
                     requestCallback.onFailed(new NetworkException(null, e));
@@ -198,13 +180,13 @@ public class RetrofitNetwork implements Network {
     }
 
     @Override
-    public void getTopRatedTvShows(final RequestCallback<Search> requestCallback) {
+    public void getTopRatedTvShows(final RequestCallback<TvSearch> requestCallback) {
         backgroundExecutor.execute(new Runnable() {
             @Override
             public void run() {
-                Call<Search> call = networkService.getTvShows(LocalStorage.TOP_RATED_CATEGORY, LocalStorage.API_KEY, LocalStorage.DEFAULT_PAGE, Language.ENGLISH_UNITED_STATES);
+                Call<TvSearch> call = networkService.getTvShows(LocalStorage.TOP_RATED_CATEGORY, LocalStorage.API_KEY, LocalStorage.DEFAULT_PAGE, Language.ENGLISH_UNITED_STATES);
                 try {
-                    Response<Search> execute = call.execute();
+                    Response<TvSearch> execute = call.execute();
                     requestCallback.onSuccess(execute.body());
                 } catch (Exception e) {
                     requestCallback.onFailed(new NetworkException(null, e));
@@ -214,7 +196,7 @@ public class RetrofitNetwork implements Network {
     }
 
     @Override
-    public void getUpcomingTvShows(final RequestCallback<Search> requestCallback) {
+    public void getUpcomingTvShows(final RequestCallback<TvSearch> requestCallback) {
         backgroundExecutor.execute(new Runnable() {
             @Override
             public void run() {
@@ -223,9 +205,9 @@ public class RetrofitNetwork implements Network {
                 String firstDate = sdf.format(c.getTime());
                 c.add(Calendar.DATE, 10);
                 String secondDate = sdf.format(c.getTime());
-                Call<Search> call = networkService.getUpcomingTvShows(LocalStorage.API_KEY, firstDate, secondDate, LocalStorage.DEFAULT_PAGE, Language.ENGLISH_UNITED_STATES);
+                Call<TvSearch> call = networkService.getUpcomingTvShows(LocalStorage.API_KEY, firstDate, secondDate, LocalStorage.DEFAULT_PAGE, Language.ENGLISH_UNITED_STATES);
                 try {
-                    Response<Search> execute = call.execute();
+                    Response<TvSearch> execute = call.execute();
                     requestCallback.onSuccess(execute.body());
                 } catch (Exception e) {
                     requestCallback.onFailed(new NetworkException(null, e));

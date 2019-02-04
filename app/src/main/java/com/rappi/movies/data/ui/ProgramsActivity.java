@@ -23,9 +23,11 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.rappi.movies.R;
 import com.rappi.movies.data.entities.Movie;
+import com.rappi.movies.data.entities.MovieSearch;
 import com.rappi.movies.data.entities.Program;
 import com.rappi.movies.data.entities.Search;
 import com.rappi.movies.data.entities.TvShow;
+import com.rappi.movies.data.fragments.ListFragment;
 import com.rappi.movies.data.fragments.ProgramsTabFragment;
 import com.rappi.movies.data.network.NetworkException;
 import com.rappi.movies.data.network.RequestCallback;
@@ -41,6 +43,7 @@ public class ProgramsActivity extends AppCompatActivity {
     private SharedPreferences preferences;
     private BottomNavigationView navigation;
 
+    private ListFragment searchList;
     private ProgramsTabFragment popularPrograms;
     private ProgramsTabFragment topRatedPrograms;
     private ProgramsTabFragment upcomingPrograms;
@@ -66,6 +69,7 @@ public class ProgramsActivity extends AppCompatActivity {
                     return true;
                 case R.id.navigation_search:
                     searchItem.setVisible(true);
+                    setFragment(searchList);
                     return true;
             }
             return false;
@@ -86,6 +90,8 @@ public class ProgramsActivity extends AppCompatActivity {
         preferences = PreferenceManager
                 .getDefaultSharedPreferences(this.getApplicationContext());
         gson = new Gson();
+
+        searchList = new ListFragment();
 
         popularPrograms = new ProgramsTabFragment();
 
@@ -153,9 +159,14 @@ public class ProgramsActivity extends AppCompatActivity {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(final String query) {
-                LocalStorage.retrofitNetwork.getMoviesByQuery(query, new RequestCallback<Search>() {
+                LocalStorage.retrofitNetwork.getMovieSearchByQuery(query, new RequestCallback<MovieSearch>() {
                     @Override
-                    public void onSuccess(Search response) {
+                    public void onSuccess(MovieSearch response) {
+                        searchList = new ListFragment();
+                        Bundle b = new Bundle();
+                        b.putSerializable("list", (ArrayList<Movie>) response.getResults());
+                        searchList.setArguments(b);
+                        setFragment(searchList);
                     }
 
                     @Override

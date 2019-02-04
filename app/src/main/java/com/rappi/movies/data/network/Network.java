@@ -1,19 +1,21 @@
 package com.rappi.movies.data.network;
 
 import com.rappi.movies.data.entities.Movie;
+import com.rappi.movies.data.entities.MovieSearch;
 import com.rappi.movies.data.entities.Search;
+import com.rappi.movies.data.entities.TvSearch;
 import com.rappi.movies.data.entities.TvShow;
 
 public interface Network
 {
 
-    void getPopularMovies(RequestCallback<Search> requestCallback );
+    void getPopularMovies(RequestCallback<MovieSearch> requestCallback );
 
-    void getTopRatedMovies(RequestCallback<Search> requestCallback);
+    void getTopRatedMovies(RequestCallback<MovieSearch> requestCallback);
 
-    void getUpcomingMovies(RequestCallback<Search> requestCallback);
+    void getUpcomingMovies(RequestCallback<MovieSearch> requestCallback);
 
-    void getMoviesByQuery(String query, RequestCallback<Search> requestCallback);
+    void getMovieSearchByQuery(String query, RequestCallback<MovieSearch> requestCallback);
 
     void getMovieById(int id, RequestCallback<Movie> requestCallback);
 
@@ -21,13 +23,13 @@ public interface Network
 
 
 
-    void getPopularTvShows(RequestCallback<Search> requestCallback );
+    void getPopularTvShows(RequestCallback<TvSearch> requestCallback );
 
-    void getTopRatedTvShows(RequestCallback<Search> requestCallback);
+    void getTopRatedTvShows(RequestCallback<TvSearch> requestCallback);
 
-    void getUpcomingTvShows(RequestCallback<Search> requestCallback);
+    void getUpcomingTvShows(RequestCallback<TvSearch> requestCallback);
 
-    void getTvShowsByQuery(String query, RequestCallback<Search> requestCallback);
+    //void getTvShowsByQuery(String query, RequestCallback<TvSearch> requestCallback);
 
     void getTvShowById(int id, RequestCallback<TvShow> requestCallback);
 

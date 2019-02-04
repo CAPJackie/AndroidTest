@@ -14,15 +14,15 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.rappi.movies.R;
 import com.rappi.movies.data.entities.Movie;
+import com.rappi.movies.data.entities.MovieSearch;
 import com.rappi.movies.data.entities.Program;
-import com.rappi.movies.data.entities.Search;
+import com.rappi.movies.data.entities.TvSearch;
 import com.rappi.movies.data.entities.TvShow;
 import com.rappi.movies.data.network.NetworkException;
 import com.rappi.movies.data.network.RequestCallback;
 import com.rappi.movies.data.persistence.LocalStorage;
 
 import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.List;
 
 public class LoadingDataActivity extends AppCompatActivity {
@@ -89,18 +89,13 @@ public class LoadingDataActivity extends AppCompatActivity {
 
 
         } else {
-            LocalStorage.retrofitNetwork.getPopularMovies(new RequestCallback<Search>() {
+            LocalStorage.retrofitNetwork.getPopularMovies(new RequestCallback<MovieSearch>() {
                 @Override
-                public void onSuccess(Search response) {
-                    List<Program> movies = response.getResults();
-                    if(movies.get(0) instanceof Movie){
-                        List<Movie> moviesConverted = new ArrayList<>();
-                        for(Program m: movies){
-                            moviesConverted.add((Movie) m);
-                        }
-                        LocalStorage.setPopularMovies(moviesConverted);
-                        setMovieCacheData(moviesConverted, "popularMovies");
-                    }
+                public void onSuccess(MovieSearch response) {
+                    List<Movie> movies = response.getResults();
+                    Log.d("POPULAR MOVIES LOADED", String.valueOf(movies.get(0) instanceof Movie));
+                    LocalStorage.setPopularMovies(movies);
+                    setMovieCacheData(movies, "popularMovies");
 
 
                     sleepMainThread(1000);
@@ -133,18 +128,13 @@ public class LoadingDataActivity extends AppCompatActivity {
 
 
     private void setTopRatedMovies() {
-        LocalStorage.retrofitNetwork.getTopRatedMovies(new RequestCallback<Search>() {
+        LocalStorage.retrofitNetwork.getTopRatedMovies(new RequestCallback<MovieSearch>() {
             @Override
-            public void onSuccess(Search response) {
-                List<Program> movies = response.getResults();
-                if(movies.get(0) instanceof Movie){
-                    List<Movie> moviesConverted = new ArrayList<>();
-                    for(Program m: movies){
-                        moviesConverted.add((Movie) m);
-                    }
-                    LocalStorage.setTopRatedMovies(moviesConverted);
-                    setMovieCacheData(moviesConverted, "topRatedMovies");
-                }
+            public void onSuccess(MovieSearch response) {
+                List<Movie> movies = response.getResults();
+                LocalStorage.setTopRatedMovies(movies);
+                setMovieCacheData(movies, "topRatedMovies");
+
 
                 sleepMainThread(1000);
 
@@ -159,19 +149,13 @@ public class LoadingDataActivity extends AppCompatActivity {
     }
 
     private void setUpcomingMovies() {
-        LocalStorage.retrofitNetwork.getUpcomingMovies(new RequestCallback<Search>() {
+        LocalStorage.retrofitNetwork.getUpcomingMovies(new RequestCallback<MovieSearch>() {
             @Override
-            public void onSuccess(Search response) {
-                List<Program> movies = response.getResults();
-                if(movies.get(0) instanceof Movie){
-                    List<Movie> moviesConverted = new ArrayList<>();
-                    for(Program m: movies){
-                        moviesConverted.add((Movie) m);
-                    }
-                    LocalStorage.setUpcomingMovies(moviesConverted);
-                    setMovieCacheData(moviesConverted, "upcomingMovies");
-                }
+            public void onSuccess(MovieSearch response) {
+                List<Movie> movies = response.getResults();
 
+                    LocalStorage.setUpcomingMovies(movies);
+                    setMovieCacheData(movies, "upcomingMovies");
 
 
                 Log.d("Popular Movies", String.valueOf(LocalStorage.getPopularMovies()));
@@ -194,18 +178,12 @@ public class LoadingDataActivity extends AppCompatActivity {
     }
 
     private void setPopularTvShows() {
-        LocalStorage.retrofitNetwork.getPopularTvShows(new RequestCallback<Search>() {
+        LocalStorage.retrofitNetwork.getPopularTvShows(new RequestCallback<TvSearch>() {
             @Override
-            public void onSuccess(Search response) {
-                List<Program> tvShows = response.getResults();
-                if(tvShows.get(0) instanceof TvShow){
-                    List<TvShow> tvShowsConverted = new ArrayList<>();
-                    for(Program m: tvShows){
-                        tvShowsConverted.add((TvShow) m);
-                    }
-                    LocalStorage.setPopularTvShows(tvShowsConverted);
-                    setTvShowCacheData(tvShowsConverted, "popularTvShows");
-                }
+            public void onSuccess(TvSearch response) {
+                List<TvShow> tvShows = response.getResults();
+                    LocalStorage.setPopularTvShows(tvShows);
+                    setTvShowCacheData(tvShows, "popularTvShows");
 
                 sleepMainThread(1000);
 
@@ -220,18 +198,13 @@ public class LoadingDataActivity extends AppCompatActivity {
     }
 
     private void setTopRatedTvShows() {
-        LocalStorage.retrofitNetwork.getTopRatedTvShows(new RequestCallback<Search>() {
+        LocalStorage.retrofitNetwork.getTopRatedTvShows(new RequestCallback<TvSearch>() {
             @Override
-            public void onSuccess(Search response) {
-                List<Program> tvShows = response.getResults();
-                if(tvShows.get(0) instanceof TvShow){
-                    List<TvShow> tvShowsConverted = new ArrayList<>();
-                    for(Program m: tvShows){
-                        tvShowsConverted.add((TvShow) m);
-                    }
-                    LocalStorage.setTopRatedTvShows(tvShowsConverted);
-                    setTvShowCacheData(tvShowsConverted, "topRatedTvShows");
-                }
+            public void onSuccess(TvSearch response) {
+                List<TvShow> tvShows = response.getResults();
+                    LocalStorage.setTopRatedTvShows(tvShows);
+                    setTvShowCacheData(tvShows, "topRatedTvShows");
+
 
                 sleepMainThread(1000);
 
@@ -246,18 +219,12 @@ public class LoadingDataActivity extends AppCompatActivity {
     }
 
     private void setUpcomingTvShows() {
-        LocalStorage.retrofitNetwork.getUpcomingTvShows(new RequestCallback<Search>() {
+        LocalStorage.retrofitNetwork.getUpcomingTvShows(new RequestCallback<TvSearch>() {
             @Override
-            public void onSuccess(Search response) {
-                List<Program> tvShows = response.getResults();
-                if(tvShows.get(0) instanceof TvShow){
-                    List<TvShow> tvShowsConverted = new ArrayList<>();
-                    for(Program m: tvShows){
-                        tvShowsConverted.add((TvShow) m);
-                    }
-                    LocalStorage.setUpcomingTvShows(tvShowsConverted);
-                    setTvShowCacheData(tvShowsConverted, "upcomingTvShows");
-                }
+            public void onSuccess(TvSearch response) {
+                List<TvShow> tvShows = response.getResults();
+                    LocalStorage.setUpcomingTvShows(tvShows);
+                    setTvShowCacheData(tvShows, "upcomingTvShows");
                 sleepMainThread(1000);
 
 

@@ -22,8 +22,10 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.rappi.movies.R;
+import com.rappi.movies.data.entities.Movie;
 import com.rappi.movies.data.entities.Program;
 import com.rappi.movies.data.entities.Search;
+import com.rappi.movies.data.entities.TvShow;
 import com.rappi.movies.data.fragments.ProgramsTabFragment;
 import com.rappi.movies.data.network.NetworkException;
 import com.rappi.movies.data.network.RequestCallback;
@@ -88,16 +90,16 @@ public class ProgramsActivity extends AppCompatActivity {
         popularPrograms = new ProgramsTabFragment();
 
         Bundle bundle = new Bundle();
-        bundle.putSerializable("movies", (ArrayList<Program>) LocalStorage.getPopularMovies());
-        bundle.putSerializable("tvShows", (ArrayList<Program>) LocalStorage.getPopularTvShows());
+        bundle.putSerializable("movies", (ArrayList<Movie>) LocalStorage.getPopularMovies());
+        bundle.putSerializable("tvShows", (ArrayList<TvShow>) LocalStorage.getPopularTvShows());
         popularPrograms.setArguments(bundle);
 
 
         topRatedPrograms = new ProgramsTabFragment();
 
         Bundle bundle2 = new Bundle();
-        bundle2.putSerializable("movies", (ArrayList<Program>) LocalStorage.getTopRatedMovies());
-        bundle2.putSerializable("tvShows", (ArrayList<Program>) LocalStorage.getTopRatedTvShows());
+        bundle2.putSerializable("movies", (ArrayList<Movie>) LocalStorage.getTopRatedMovies());
+        bundle2.putSerializable("tvShows", (ArrayList<TvShow>) LocalStorage.getTopRatedTvShows());
         topRatedPrograms.setArguments(bundle2);
 
 
@@ -105,8 +107,8 @@ public class ProgramsActivity extends AppCompatActivity {
         upcomingPrograms = new ProgramsTabFragment();
 
         Bundle bundle3 = new Bundle();
-        bundle3.putSerializable("movies", (ArrayList<Program>) LocalStorage.getUpcomingMovies());
-        bundle3.putSerializable("tvShows", (ArrayList<Program>) LocalStorage.getUpcomingTvShows());
+        bundle3.putSerializable("movies", (ArrayList<Movie>) LocalStorage.getUpcomingMovies());
+        bundle3.putSerializable("tvShows", (ArrayList<TvShow>) LocalStorage.getUpcomingTvShows());
         upcomingPrograms.setArguments(bundle3);
 
 
@@ -119,38 +121,6 @@ public class ProgramsActivity extends AppCompatActivity {
 
     }
 
-    /*@NonNull
-    private RecyclerAdapter.OnItemClicked onItemClickListener() {
-        return new RecyclerAdapter.OnItemClicked() {
-            @Override
-            public void onItemClick(final int position) {
-                String defaultMovie = preferences.getString("movie" + movies.get(position).getId(), "");
-                if(!defaultMovie.equals("")){
-                    LocalStorage.setSelectedMovie(gson.fromJson(defaultMovie, Movie.class));
-                    setVideosToAdapter();
-                } else{
-                    LocalStorage.retrofitNetwork.getMovieById(movies.get(position).getId(), new RequestCallback<Movie>() {
-                        @Override
-                        public void onSuccess(Movie response) {
-                            LocalStorage.setSelectedMovie(response);
-                            SharedPreferences.Editor prefsEditor = preferences.edit();
-                            String jsonMovie = gson.toJson(response);
-                            prefsEditor.putString("movie" + response.getId(), jsonMovie);
-                            prefsEditor.apply();
-                            setVideosToAdapter();
-                        }
-
-                        @Override
-                        public void onFailed(NetworkException e) {
-
-                        }
-                    });
-
-                }
-
-            }
-        };
-    }*/
 
     private void setViewComponents() {
         BottomNavigationView navigation = findViewById(R.id.navigation);

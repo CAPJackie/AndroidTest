@@ -47,6 +47,15 @@
                     android:textSize="@dimen/tittle_default_size" />
 
                 <TextView
+                    android:id="@+id/tv_show_tittle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/open_sans_extrabold"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/tittle_default_size" />
+
+                <TextView
                     android:id="@+id/movie_description"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

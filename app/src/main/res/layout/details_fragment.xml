@@ -17,6 +17,7 @@
             android:orientation="horizontal">
 
             <TextView
+                android:id="@+id/original_title_label_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/open_sans_bold"
@@ -40,6 +41,7 @@
             android:orientation="horizontal">
 
             <TextView
+                android:id="@+id/release_date_label_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/open_sans_bold"
@@ -68,11 +70,13 @@
             android:textSize="@dimen/text_default_size" />
 
         <LinearLayout
+            android:id="@+id/runtime_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
             <TextView
+                android:id="@+id/runtime_label_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/open_sans_bold"
@@ -142,6 +146,29 @@
                 android:fontFamily="@font/opensans_regular"
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/text_default_size" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/seasons_number_label_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/open_sans_bold"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/text_default_size" />
+
+            <TextView
+                android:id="@+id/seasons_number_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/opensans_regular"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/text_default_size" />
+
         </LinearLayout>
 
 

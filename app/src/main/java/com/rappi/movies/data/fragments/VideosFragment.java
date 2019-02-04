@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 
 import com.rappi.movies.R;
 import com.rappi.movies.data.entities.Movie;
+import com.rappi.movies.data.entities.Program;
 import com.rappi.movies.data.entities.Video;
 import com.rappi.movies.data.network.VideoAdapter;
 import com.rappi.movies.data.persistence.LocalStorage;
@@ -23,7 +24,7 @@ public class VideosFragment extends Fragment {
 
     private RecyclerView recyclerView;
 
-    private Movie selectedMovie;
+    private Program selectedProgram;
     private VideoAdapter adapter;
     private List<Video> videos = new ArrayList<>();
     private RecyclerView.LayoutManager layoutManager;
@@ -33,8 +34,8 @@ public class VideosFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.videos_fragment, null);
-        //selectedMovie = LocalStorage.getSelectedMovie();
-        //videos = selectedMovie.getResults();
+        selectedProgram = LocalStorage.getSelectedProgram();
+        videos = selectedProgram.getResults();
         setRecyclerViewComponents(view);
         return view;
     }

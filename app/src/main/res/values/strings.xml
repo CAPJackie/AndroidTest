@@ -14,4 +14,7 @@
     <string name="genres">Genres:</string>
     <string name="movies">Movies</string>
     <string name="tv_shows">Tv Shows</string>
+    <string name="first_air_date">First air date:</string>
+    <string name="original_name">Original name:</string>
+    <string name="seasons">Seasons:</string>
 </resources>

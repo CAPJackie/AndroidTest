@@ -6,12 +6,15 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.ProgressBar;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.rappi.movies.R;
 import com.rappi.movies.data.entities.Movie;
+import com.rappi.movies.data.entities.Program;
+import com.rappi.movies.data.entities.TvShow;
 import com.rappi.movies.data.entities.Video;
 import com.rappi.movies.data.network.NetworkException;
 import com.rappi.movies.data.network.RequestCallback;
@@ -24,7 +27,7 @@ public class LoadingDetailsActivity extends AppCompatActivity {
     private ProgressBar progressBar;
     private SharedPreferences preferences;
     private Gson gson;
-    private Movie selectedMovie;
+    private Program selectedProgram;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -38,54 +41,94 @@ public class LoadingDetailsActivity extends AppCompatActivity {
                 .getDefaultSharedPreferences(this.getApplicationContext());
         gson = new Gson();
 
-        //selectedMovie = LocalStorage.getSelectedMovie();
+        selectedProgram = LocalStorage.getSelectedProgram();
 
-        String defaultMovie = preferences.getString("movie" + selectedMovie.getId(), "");
-        if (!defaultMovie.equals("")) {
-            LocalStorage.setSelectedMovie(gson.fromJson(defaultMovie, Movie.class));
+        String defaultProgram = preferences.getString("program" + selectedProgram.getId(), "");
+        if (selectedProgram instanceof Movie) {
+            onClickMovie(defaultProgram);
+        } else if (selectedProgram instanceof TvShow) {
+            onClickTvShow(defaultProgram);
+        }
 
-            setVideosToAdapter();
+    }
 
+    public void setVideosToAdapter() {
+        String videos = preferences.getString("videos" + selectedProgram.getId(), "");
+        if (!videos.equals("")) {
+            Type type = new TypeToken<List<Video>>() {
+            }.getType();
+            LocalStorage.getSelectedProgram().setResults((List<Video>) gson.fromJson(videos, type));
+            Intent intent = new Intent(getApplicationContext(), DetailActivity.class);
+            startActivity(intent);
         } else {
-            LocalStorage.retrofitNetwork.getMovieById(selectedMovie.getId(), new RequestCallback<Movie>() {
-                @Override
-                public void onSuccess(Movie response) {
-                    LocalStorage.setSelectedMovie(response);
-                    SharedPreferences.Editor prefsEditor = preferences.edit();
-                    String jsonMovie = gson.toJson(response);
-                    prefsEditor.putString("movie" + response.getId(), jsonMovie);
-                    prefsEditor.apply();
-                    setVideosToAdapter();
-                }
-
-                @Override
-                public void onFailed(NetworkException e) {
-                    e.printStackTrace();
-                }
-            });
+            if (selectedProgram instanceof Movie) {
+                setMovieVideos();
+            } else if (selectedProgram instanceof TvShow) {
+                setTvShowsVideos();
+            }
 
         }
     }
 
-    public void setVideosToAdapter() {
-        String videos = preferences.getString("videos" + LocalStorage.getSelectedMovie().getId(), "");
-        if (!videos.equals("")) {
-            Type type = new TypeToken<List<Video>>() {
-            }.getType();
-            //LocalStorage.getSelectedMovie().setResults((List<Video>) gson.fromJson(videos, type));
-            Intent intent = new Intent(getApplicationContext(), DetailActivity.class);
-            startActivity(intent);
+    private void setTvShowsVideos() {
+        LocalStorage.retrofitNetwork.getTvShowVideos(selectedProgram.getId(), new RequestCallback<TvShow>() {
+            @Override
+            public void onSuccess(TvShow response) {
+                LocalStorage.getSelectedProgram().setResults(response.getResults());
+                SharedPreferences.Editor prefsEditor = preferences.edit();
+                String jsonVideos = gson.toJson(response.getResults());
+                prefsEditor.putString("videos" + response.getId(), jsonVideos);
+                prefsEditor.apply();
+                Log.d("TvShowVideos", String.valueOf(response));
+                Intent intent = new Intent(getApplicationContext(), DetailActivity.class);
+                startActivity(intent);
+            }
+
+            @Override
+            public void onFailed(NetworkException e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
+    private void setMovieVideos() {
+        LocalStorage.retrofitNetwork.getMovieVideos(selectedProgram.getId(), new RequestCallback<Movie>() {
+            @Override
+            public void onSuccess(Movie response) {
+                LocalStorage.getSelectedProgram().setResults(response.getResults());
+                SharedPreferences.Editor prefsEditor = preferences.edit();
+                String jsonVideos = gson.toJson(response.getResults());
+                prefsEditor.putString("videos" + response.getId(), jsonVideos);
+                prefsEditor.apply();
+                Log.d("MovieVideos", String.valueOf(response));
+                Intent intent = new Intent(getApplicationContext(), DetailActivity.class);
+                startActivity(intent);
+            }
+
+            @Override
+            public void onFailed(NetworkException e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
+
+    private void onClickTvShow(String cachedTvShow) {
+        if (!cachedTvShow.equals("")) {
+            LocalStorage.setSelectedProgram(gson.fromJson(cachedTvShow, TvShow.class));
+            setVideosToAdapter();
         } else {
-            LocalStorage.retrofitNetwork.getMovieVideos(LocalStorage.getSelectedMovie().getId(), new RequestCallback<Movie>() {
+            LocalStorage.retrofitNetwork.getTvShowById(selectedProgram.getId(), new RequestCallback<TvShow>() {
                 @Override
-                public void onSuccess(Movie response) {
-                    //LocalStorage.getSelectedMovie().setResults(response.getResults());
+                public void onSuccess(TvShow response) {
+                    LocalStorage.setSelectedProgram(response);
                     SharedPreferences.Editor prefsEditor = preferences.edit();
-                    //String jsonVideos = gson.toJson(LocalStorage.getSelectedMovie().getResults());
-                    //prefsEditor.putString("videos" + LocalStorage.getSelectedMovie().getId(), jsonVideos);
+                    String jsonTvShow = gson.toJson(response);
+                    prefsEditor.putString("program" + response.getId(), jsonTvShow);
                     prefsEditor.apply();
-                    Intent intent = new Intent(getApplicationContext(), DetailActivity.class);
-                    startActivity(intent);
+                    setVideosToAdapter();
+                    Log.d("ListFragmentTv", jsonTvShow);
+
                 }
 
                 @Override
@@ -93,6 +136,34 @@ public class LoadingDetailsActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
             });
+        }
+
+    }
+
+
+    private void onClickMovie(String cachedMovie) {
+        if (!cachedMovie.equals("")) {
+            LocalStorage.setSelectedProgram(gson.fromJson(cachedMovie, Movie.class));
+            setVideosToAdapter();
+        } else {
+            LocalStorage.retrofitNetwork.getMovieById(selectedProgram.getId(), new RequestCallback<Movie>() {
+                @Override
+                public void onSuccess(Movie response) {
+                    LocalStorage.setSelectedProgram(response);
+                    SharedPreferences.Editor prefsEditor = preferences.edit();
+                    String jsonMovie = gson.toJson(response);
+                    prefsEditor.putString("program" + response.getId(), jsonMovie);
+                    prefsEditor.apply();
+                    setVideosToAdapter();
+                    Log.d("ListFragmentMovie", jsonMovie);
+                }
+
+                @Override
+                public void onFailed(NetworkException e) {
+                    e.printStackTrace();
+                }
+            });
+
         }
     }
 }

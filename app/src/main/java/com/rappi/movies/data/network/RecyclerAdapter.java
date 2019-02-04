@@ -1,7 +1,6 @@
 package com.rappi.movies.data.network;
 
 import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -72,22 +71,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             movieImage = itemView.findViewById(R.id.item_image);
-
-
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override public void onClick(View v) {
-
-                    int position = getAdapterPosition();
-
-
-                    Snackbar.make(v, "Click detected on item " + position,
-                            Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
-
-
-
-                }
-            });
         }
     }
 }

@@ -4,7 +4,6 @@ package com.rappi.movies.data.network;
 import com.rappi.movies.data.entities.Language;
 import com.rappi.movies.data.entities.Movie;
 import com.rappi.movies.data.entities.MovieSearch;
-import com.rappi.movies.data.entities.Search;
 import com.rappi.movies.data.entities.TvSearch;
 import com.rappi.movies.data.entities.TvShow;
 import com.rappi.movies.data.persistence.LocalStorage;
@@ -216,11 +215,21 @@ public class RetrofitNetwork implements Network {
         });
     }
 
-
-
-
-
-
+    @Override
+    public void getTvShowsByQuery(final String query, final RequestCallback<TvSearch> requestCallback) {
+        backgroundExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                Call<TvSearch> call = networkService.getTvShowSearchByQuery(query, LocalStorage.API_KEY, LocalStorage.DEFAULT_PAGE, Language.ENGLISH_UNITED_STATES);
+                try {
+                    Response<TvSearch> execute = call.execute();
+                    requestCallback.onSuccess(execute.body());
+                } catch (Exception e) {
+                    requestCallback.onFailed(new NetworkException(null, e));
+                }
+            }
+        });
+    }
 
 
 }

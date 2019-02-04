@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 
 import com.rappi.movies.R;
 import com.rappi.movies.data.entities.Program;
+import com.rappi.movies.data.persistence.LocalStorage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,8 +31,8 @@ public class ProgramsTabFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.movies_fragment, null);
 
-        movies = (ArrayList<Program>) getArguments().getSerializable("movies");
-        tvShows = (ArrayList<Program>) getArguments().getSerializable("tvShows");
+        movies = getArguments()==null?new ArrayList<Program>():(ArrayList<Program>) getArguments().getSerializable(LocalStorage.MOVIES);
+        tvShows = getArguments()==null?new ArrayList<Program>():(ArrayList<Program>) getArguments().getSerializable(LocalStorage.TV_SHOWS);
         tabLayout = view.findViewById(R.id.program_tabs);
         viewPager = view.findViewById(R.id.containerPrograms);
         mSectionsPagerAdapter = new SectionsPagerAdapter(getChildFragmentManager());
@@ -55,12 +56,12 @@ public class ProgramsTabFragment extends Fragment {
             switch (position){
                 case 0:
                     Bundle b1 = new Bundle();
-                    b1.putSerializable("list", (ArrayList<Program>) movies);
+                    b1.putSerializable(LocalStorage.LIST_STRING, (ArrayList<Program>) movies);
                     instance.setArguments(b1);
                     break;
                 case 1:
                     Bundle b2 = new Bundle();
-                    b2.putSerializable("list", (ArrayList<Program>) tvShows);
+                    b2.putSerializable(LocalStorage.LIST_STRING, (ArrayList<Program>) tvShows);
                     instance.setArguments(b2);
                     break;
             }

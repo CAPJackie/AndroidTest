@@ -2,7 +2,6 @@ package com.rappi.movies.data.network;
 
 import com.rappi.movies.data.entities.Movie;
 import com.rappi.movies.data.entities.MovieSearch;
-import com.rappi.movies.data.entities.Search;
 import com.rappi.movies.data.entities.TvSearch;
 import com.rappi.movies.data.entities.TvShow;
 
@@ -29,7 +28,7 @@ public interface Network
 
     void getUpcomingTvShows(RequestCallback<TvSearch> requestCallback);
 
-    //void getTvShowsByQuery(String query, RequestCallback<TvSearch> requestCallback);
+    void getTvShowsByQuery(String query, RequestCallback<TvSearch> requestCallback);
 
     void getTvShowById(int id, RequestCallback<TvShow> requestCallback);
 

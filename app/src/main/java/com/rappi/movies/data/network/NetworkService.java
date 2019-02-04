@@ -2,10 +2,8 @@ package com.rappi.movies.data.network;
 
 import com.rappi.movies.data.entities.Movie;
 import com.rappi.movies.data.entities.MovieSearch;
-import com.rappi.movies.data.entities.Search;
 import com.rappi.movies.data.entities.TvSearch;
 import com.rappi.movies.data.entities.TvShow;
-import com.rappi.movies.data.persistence.LocalStorage;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -31,6 +29,12 @@ public interface NetworkService {
 
     @GET("search/movie")
     Call<MovieSearch> getMovieSearchByQuery(@Query("query") String query,
+                                            @Query("api_key") String apiKey,
+                                            @Query("page") int page,
+                                            @Query("language") String language);
+
+    @GET("search/tv")
+    Call<TvSearch> getTvShowSearchByQuery(@Query("query") String query,
                                             @Query("api_key") String apiKey,
                                             @Query("page") int page,
                                             @Query("language") String language);

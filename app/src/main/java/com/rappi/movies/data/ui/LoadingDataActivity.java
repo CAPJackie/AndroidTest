@@ -15,7 +15,6 @@ import com.google.gson.reflect.TypeToken;
 import com.rappi.movies.R;
 import com.rappi.movies.data.entities.Movie;
 import com.rappi.movies.data.entities.MovieSearch;
-import com.rappi.movies.data.entities.Program;
 import com.rappi.movies.data.entities.TvSearch;
 import com.rappi.movies.data.entities.TvShow;
 import com.rappi.movies.data.network.NetworkException;
@@ -49,12 +48,12 @@ public class LoadingDataActivity extends AppCompatActivity {
         gson = new Gson();
 
 
-        String defaultPopularTvShows = preferences.getString("popularTvShows", "");
-        String defaultTopRatedTvShows = preferences.getString("topRatedTvShows", "");
-        String defaultUpcomingTvShows = preferences.getString("upcomingTvShows", "");
-        String defaultPopularMovies = preferences.getString("popularMovies", "");
-        String defaultTopRatedMovies = preferences.getString("topRatedMovies", "");
-        String defaultUpcomingMovies = preferences.getString("upcomingMovies", "");
+        String defaultPopularTvShows = preferences.getString(LocalStorage.POPULAR_TV_SHOWS, "");
+        String defaultTopRatedTvShows = preferences.getString(LocalStorage.TOP_RATED_TV_SHOWS, "");
+        String defaultUpcomingTvShows = preferences.getString(LocalStorage.UPCOMING_TV_SHOWS, "");
+        String defaultPopularMovies = preferences.getString(LocalStorage.POPULAR_MOVIES, "");
+        String defaultTopRatedMovies = preferences.getString(LocalStorage.TOP_RATED_MOVIES, "");
+        String defaultUpcomingMovies = preferences.getString(LocalStorage.UPCOMING_MOVIES, "");
         if (!defaultPopularMovies.equals("") &&
                 !defaultTopRatedMovies.equals("") &&
                 !defaultUpcomingMovies.equals("") &&
@@ -68,9 +67,9 @@ public class LoadingDataActivity extends AppCompatActivity {
             LocalStorage.setTopRatedMovies((List<Movie>) gson.fromJson(defaultTopRatedMovies, type));
             LocalStorage.setUpcomingMovies((List<Movie>) gson.fromJson(defaultUpcomingMovies, type));
 
-            Log.d("Popular Movies", String.valueOf(LocalStorage.getPopularMovies()));
+            /*Log.d("Popular Movies", String.valueOf(LocalStorage.getPopularMovies()));
             Log.d("TopRated Movies", String.valueOf(LocalStorage.getTopRatedMovies()));
-            Log.d("Upcoming Movies", String.valueOf(LocalStorage.getUpcomingMovies()));
+            Log.d("Upcoming Movies", String.valueOf(LocalStorage.getUpcomingMovies()));*/
 
 
             Type type2 = new TypeToken<List<TvShow>>() {
@@ -80,9 +79,9 @@ public class LoadingDataActivity extends AppCompatActivity {
             LocalStorage.setTopRatedTvShows((List<TvShow>) gson.fromJson(defaultTopRatedTvShows, type2));
             LocalStorage.setUpcomingTvShows((List<TvShow>) gson.fromJson(defaultUpcomingTvShows, type2));
 
-            Log.d("Popular TvShows", String.valueOf(LocalStorage.getPopularTvShows()));
+            /*Log.d("Popular TvShows", String.valueOf(LocalStorage.getPopularTvShows()));
             Log.d("TopRated TvShows", String.valueOf(LocalStorage.getTopRatedTvShows()));
-            Log.d("Upcoming TvShows", String.valueOf(LocalStorage.getUpcomingTvShows()));
+            Log.d("Upcoming TvShows", String.valueOf(LocalStorage.getUpcomingTvShows()));*/
 
             Intent intent = new Intent(getApplicationContext(), ProgramsActivity.class);
             startActivity(intent);
@@ -93,9 +92,8 @@ public class LoadingDataActivity extends AppCompatActivity {
                 @Override
                 public void onSuccess(MovieSearch response) {
                     List<Movie> movies = response.getResults();
-                    Log.d("POPULAR MOVIES LOADED", String.valueOf(movies.get(0) instanceof Movie));
                     LocalStorage.setPopularMovies(movies);
-                    setMovieCacheData(movies, "popularMovies");
+                    setMovieCacheData(movies, LocalStorage.POPULAR_MOVIES);
 
 
                     sleepMainThread(1000);
@@ -133,7 +131,7 @@ public class LoadingDataActivity extends AppCompatActivity {
             public void onSuccess(MovieSearch response) {
                 List<Movie> movies = response.getResults();
                 LocalStorage.setTopRatedMovies(movies);
-                setMovieCacheData(movies, "topRatedMovies");
+                setMovieCacheData(movies, LocalStorage.TOP_RATED_MOVIES);
 
 
                 sleepMainThread(1000);
@@ -155,12 +153,12 @@ public class LoadingDataActivity extends AppCompatActivity {
                 List<Movie> movies = response.getResults();
 
                     LocalStorage.setUpcomingMovies(movies);
-                    setMovieCacheData(movies, "upcomingMovies");
+                    setMovieCacheData(movies, LocalStorage.UPCOMING_MOVIES);
 
 
-                Log.d("Popular Movies", String.valueOf(LocalStorage.getPopularMovies()));
+                /*Log.d("Popular Movies", String.valueOf(LocalStorage.getPopularMovies()));
                 Log.d("TopRated Movies", String.valueOf(LocalStorage.getTopRatedMovies()));
-                Log.d("Upcoming Movies", String.valueOf(LocalStorage.getUpcomingMovies()));
+                Log.d("Upcoming Movies", String.valueOf(LocalStorage.getUpcomingMovies()));*/
 
                 sleepMainThread(1000);
 
@@ -183,7 +181,7 @@ public class LoadingDataActivity extends AppCompatActivity {
             public void onSuccess(TvSearch response) {
                 List<TvShow> tvShows = response.getResults();
                     LocalStorage.setPopularTvShows(tvShows);
-                    setTvShowCacheData(tvShows, "popularTvShows");
+                    setTvShowCacheData(tvShows, LocalStorage.POPULAR_TV_SHOWS);
 
                 sleepMainThread(1000);
 
@@ -203,7 +201,7 @@ public class LoadingDataActivity extends AppCompatActivity {
             public void onSuccess(TvSearch response) {
                 List<TvShow> tvShows = response.getResults();
                     LocalStorage.setTopRatedTvShows(tvShows);
-                    setTvShowCacheData(tvShows, "topRatedTvShows");
+                    setTvShowCacheData(tvShows, LocalStorage.TOP_RATED_TV_SHOWS);
 
 
                 sleepMainThread(1000);
@@ -224,13 +222,13 @@ public class LoadingDataActivity extends AppCompatActivity {
             public void onSuccess(TvSearch response) {
                 List<TvShow> tvShows = response.getResults();
                     LocalStorage.setUpcomingTvShows(tvShows);
-                    setTvShowCacheData(tvShows, "upcomingTvShows");
+                    setTvShowCacheData(tvShows, LocalStorage.UPCOMING_TV_SHOWS);
                 sleepMainThread(1000);
 
 
-                Log.d("Popular TvShows", String.valueOf(LocalStorage.getPopularTvShows()));
+                /*Log.d("Popular TvShows", String.valueOf(LocalStorage.getPopularTvShows()));
                 Log.d("TopRated TvShows", String.valueOf(LocalStorage.getTopRatedTvShows()));
-                Log.d("Upcoming TvShows", String.valueOf(LocalStorage.getUpcomingTvShows()));
+                Log.d("Upcoming TvShows", String.valueOf(LocalStorage.getUpcomingTvShows()));*/
 
                 Intent intent = new Intent(getApplicationContext(), ProgramsActivity.class);
                 startActivity(intent);

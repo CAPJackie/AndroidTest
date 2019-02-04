@@ -43,7 +43,7 @@ public class LoadingDetailsActivity extends AppCompatActivity {
 
         selectedProgram = LocalStorage.getSelectedProgram();
 
-        String defaultProgram = preferences.getString("program" + selectedProgram.getId(), "");
+        String defaultProgram = preferences.getString(LocalStorage.PROGRAM + selectedProgram.getId(), "");
         if (selectedProgram instanceof Movie) {
             onClickMovie(defaultProgram);
         } else if (selectedProgram instanceof TvShow) {
@@ -53,7 +53,7 @@ public class LoadingDetailsActivity extends AppCompatActivity {
     }
 
     public void setVideosToAdapter() {
-        String videos = preferences.getString("videos" + selectedProgram.getId(), "");
+        String videos = preferences.getString(LocalStorage.VIDEOS + selectedProgram.getId(), "");
         if (!videos.equals("")) {
             Type type = new TypeToken<List<Video>>() {
             }.getType();
@@ -77,9 +77,9 @@ public class LoadingDetailsActivity extends AppCompatActivity {
                 LocalStorage.getSelectedProgram().setResults(response.getResults());
                 SharedPreferences.Editor prefsEditor = preferences.edit();
                 String jsonVideos = gson.toJson(response.getResults());
-                prefsEditor.putString("videos" + response.getId(), jsonVideos);
+                prefsEditor.putString(LocalStorage.VIDEOS + response.getId(), jsonVideos);
                 prefsEditor.apply();
-                Log.d("TvShowVideos", String.valueOf(response));
+                //Log.d("TvShowVideos", String.valueOf(response));
                 Intent intent = new Intent(getApplicationContext(), DetailActivity.class);
                 startActivity(intent);
             }
@@ -98,9 +98,9 @@ public class LoadingDetailsActivity extends AppCompatActivity {
                 LocalStorage.getSelectedProgram().setResults(response.getResults());
                 SharedPreferences.Editor prefsEditor = preferences.edit();
                 String jsonVideos = gson.toJson(response.getResults());
-                prefsEditor.putString("videos" + response.getId(), jsonVideos);
+                prefsEditor.putString(LocalStorage.VIDEOS + response.getId(), jsonVideos);
                 prefsEditor.apply();
-                Log.d("MovieVideos", String.valueOf(response));
+                //Log.d("MovieVideos", String.valueOf(response));
                 Intent intent = new Intent(getApplicationContext(), DetailActivity.class);
                 startActivity(intent);
             }
@@ -124,10 +124,10 @@ public class LoadingDetailsActivity extends AppCompatActivity {
                     LocalStorage.setSelectedProgram(response);
                     SharedPreferences.Editor prefsEditor = preferences.edit();
                     String jsonTvShow = gson.toJson(response);
-                    prefsEditor.putString("program" + response.getId(), jsonTvShow);
+                    prefsEditor.putString(LocalStorage.PROGRAM + response.getId(), jsonTvShow);
                     prefsEditor.apply();
                     setVideosToAdapter();
-                    Log.d("ListFragmentTv", jsonTvShow);
+                    //Log.d("ListFragmentTv", jsonTvShow);
 
                 }
 
@@ -152,10 +152,10 @@ public class LoadingDetailsActivity extends AppCompatActivity {
                     LocalStorage.setSelectedProgram(response);
                     SharedPreferences.Editor prefsEditor = preferences.edit();
                     String jsonMovie = gson.toJson(response);
-                    prefsEditor.putString("program" + response.getId(), jsonMovie);
+                    prefsEditor.putString(LocalStorage.PROGRAM + response.getId(), jsonMovie);
                     prefsEditor.apply();
                     setVideosToAdapter();
-                    Log.d("ListFragmentMovie", jsonMovie);
+                    //Log.d("ListFragmentMovie", jsonMovie);
                 }
 
                 @Override

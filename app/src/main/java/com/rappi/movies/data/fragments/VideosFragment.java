@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.rappi.movies.R;
-import com.rappi.movies.data.entities.Movie;
 import com.rappi.movies.data.entities.Program;
 import com.rappi.movies.data.entities.Video;
 import com.rappi.movies.data.network.VideoAdapter;

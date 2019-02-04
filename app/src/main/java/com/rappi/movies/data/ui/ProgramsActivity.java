@@ -6,19 +6,14 @@ import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.SearchView;
-import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.rappi.movies.R;
@@ -26,6 +21,7 @@ import com.rappi.movies.data.entities.Movie;
 import com.rappi.movies.data.entities.MovieSearch;
 import com.rappi.movies.data.entities.Program;
 import com.rappi.movies.data.entities.Search;
+import com.rappi.movies.data.entities.TvSearch;
 import com.rappi.movies.data.entities.TvShow;
 import com.rappi.movies.data.fragments.ListFragment;
 import com.rappi.movies.data.fragments.ProgramsTabFragment;
@@ -43,7 +39,7 @@ public class ProgramsActivity extends AppCompatActivity {
     private SharedPreferences preferences;
     private BottomNavigationView navigation;
 
-    private ListFragment searchList;
+    private ProgramsTabFragment searchList;
     private ProgramsTabFragment popularPrograms;
     private ProgramsTabFragment topRatedPrograms;
     private ProgramsTabFragment upcomingPrograms;
@@ -91,32 +87,30 @@ public class ProgramsActivity extends AppCompatActivity {
                 .getDefaultSharedPreferences(this.getApplicationContext());
         gson = new Gson();
 
-        searchList = new ListFragment();
+        searchList = new ProgramsTabFragment();
 
         popularPrograms = new ProgramsTabFragment();
 
         Bundle bundle = new Bundle();
-        bundle.putSerializable("movies", (ArrayList<Movie>) LocalStorage.getPopularMovies());
-        bundle.putSerializable("tvShows", (ArrayList<TvShow>) LocalStorage.getPopularTvShows());
+        bundle.putSerializable(LocalStorage.MOVIES, (ArrayList<Movie>) LocalStorage.getPopularMovies());
+        bundle.putSerializable(LocalStorage.TV_SHOWS, (ArrayList<TvShow>) LocalStorage.getPopularTvShows());
         popularPrograms.setArguments(bundle);
 
 
         topRatedPrograms = new ProgramsTabFragment();
 
         Bundle bundle2 = new Bundle();
-        bundle2.putSerializable("movies", (ArrayList<Movie>) LocalStorage.getTopRatedMovies());
-        bundle2.putSerializable("tvShows", (ArrayList<TvShow>) LocalStorage.getTopRatedTvShows());
+        bundle2.putSerializable(LocalStorage.MOVIES, (ArrayList<Movie>) LocalStorage.getTopRatedMovies());
+        bundle2.putSerializable(LocalStorage.TV_SHOWS, (ArrayList<TvShow>) LocalStorage.getTopRatedTvShows());
         topRatedPrograms.setArguments(bundle2);
-
 
 
         upcomingPrograms = new ProgramsTabFragment();
 
         Bundle bundle3 = new Bundle();
-        bundle3.putSerializable("movies", (ArrayList<Movie>) LocalStorage.getUpcomingMovies());
-        bundle3.putSerializable("tvShows", (ArrayList<TvShow>) LocalStorage.getUpcomingTvShows());
+        bundle3.putSerializable(LocalStorage.MOVIES, (ArrayList<Movie>) LocalStorage.getUpcomingMovies());
+        bundle3.putSerializable(LocalStorage.TV_SHOWS, (ArrayList<TvShow>) LocalStorage.getUpcomingTvShows());
         upcomingPrograms.setArguments(bundle3);
-
 
 
         navigation = findViewById(R.id.navigation);
@@ -162,11 +156,13 @@ public class ProgramsActivity extends AppCompatActivity {
                 LocalStorage.retrofitNetwork.getMovieSearchByQuery(query, new RequestCallback<MovieSearch>() {
                     @Override
                     public void onSuccess(MovieSearch response) {
-                        searchList = new ListFragment();
+                        searchList = new ProgramsTabFragment();
                         Bundle b = new Bundle();
-                        b.putSerializable("list", (ArrayList<Movie>) response.getResults());
-                        searchList.setArguments(b);
-                        setFragment(searchList);
+                        b.putSerializable(LocalStorage.MOVIES, (ArrayList<Movie>) response.getResults());
+
+                        setTvSearchQueryData(b, query);
+
+
                     }
 
                     @Override
@@ -185,6 +181,22 @@ public class ProgramsActivity extends AppCompatActivity {
 
 
         return super.onCreateOptionsMenu(menu);
+    }
+
+    private void setTvSearchQueryData(final Bundle b, String query) {
+        LocalStorage.retrofitNetwork.getTvShowsByQuery(query, new RequestCallback<TvSearch>() {
+            @Override
+            public void onSuccess(TvSearch response) {
+                b.putSerializable(LocalStorage.TV_SHOWS, (ArrayList<TvShow>) response.getResults());
+                searchList.setArguments(b);
+                setFragment(searchList);
+            }
+
+            @Override
+            public void onFailed(NetworkException e) {
+                e.printStackTrace();
+            }
+        });
     }
 
     @Override

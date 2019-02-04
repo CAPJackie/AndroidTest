@@ -18,8 +18,17 @@ public class LocalStorage {
     public static final String UPCOMING_CATEGORY = "upcoming";
     public static final int DEFAULT_PAGE = 1;
 
-    public static final String MOVIE = "movie";
-    public static final String TV_SHOW = "tv";
+    public static final String MOVIES = "movies";
+    public static final String TV_SHOWS = "tvShows";
+    public static final String LIST_STRING = "list";
+    public static final String POPULAR_TV_SHOWS = "popularTvShows";
+    public static final String TOP_RATED_TV_SHOWS = "topRatedTvShows";
+    public static final String UPCOMING_TV_SHOWS = "upcomingTvShows";
+    public static final String POPULAR_MOVIES = "popularMovies";
+    public static final String TOP_RATED_MOVIES = "topRatedMovies";
+    public static final String UPCOMING_MOVIES = "upcomingMovies";
+    public static final String PROGRAM = "program";
+    public static final String VIDEOS = "videos";
 
     private static List<Movie> popularMovies;
     private static List<Movie> topRatedMovies;
